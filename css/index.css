@@ -1,0 +1,142 @@
+*
+{
+    font-family: Arial, Helvetica, monospace;
+}
+
+body
+{
+    background-color: #807989;
+}
+
+#video
+{
+    background: green;
+}
+
+#canvas
+{
+    background: green;
+}
+
+header
+{
+    display: flex;
+    flex-direction: row;
+    position: fixed;
+    left: 0;
+    top: 0;
+    background: #98A0AC;
+    border-radius: 0 0 25px 25px;
+    text-align: justify;
+    width: 100%;
+    height: 8%;
+}
+
+#HeaderContainer
+{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+}
+
+.Title
+{
+    display: block;
+    width: 70%;
+}
+
+.Title.input[type=password]
+{
+    width: 100%;
+}
+
+.Title.input[type=text]
+{
+    width: 100%;
+}
+
+.HTitle
+{
+    font-size: 2.5vh;
+    color: black;
+    text-align: center;
+}
+
+footer
+{
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    background: #98A0AC;
+    width: 100%;
+    border-radius: 25px 25px 0 0;
+    text-align: center;
+    height: 5%;
+    font-size: 1.6vh;
+    margin: auto;
+}
+
+table
+{
+    overflow-x: auto;
+}
+
+.UserLogin
+{
+    overflow: auto;
+    width: 30%;
+    height: 100%;
+}
+
+.FormButton
+{
+    background-color: #807989;
+    border: none;
+    border-radius: 5px;
+    width: 100%;
+    text-align: center;
+    display: inline-block;
+    font-size: 16px;
+}
+
+body
+{
+    position: fixed;
+    top: 8%;
+    display: flex;
+    flex-direction: row;
+    background: #363B46;
+    height: 85%;
+    width: 100%;
+}
+
+.Container
+{
+    display: flex;
+    margin: auto;
+    flex-direction: row;
+    background: #363B46;
+    height: 86%;
+    width: 100%;
+}
+
+#Feed
+{
+    margin: 5px;
+    width: 75%;
+    height: 100%;
+    background: #918C9D;
+}
+
+#Sidebar
+{
+    margin: 5px;
+    width: 23%;
+    height: 100%;
+    background: #918C9D;
+}
+
+@media screen and (max-width: 600px) {
+    .topnav.responsive {position: relative;}
+  }
+  
