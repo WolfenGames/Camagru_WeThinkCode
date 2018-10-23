@@ -14,6 +14,7 @@
 		<div class="Title">
 			<p class="HTitle">Camagru of all Camagru's</p>
 		</div>
+		<!--
 		<div class="UserLogin">
 			<form>
 				<table class="LoginForm">
@@ -33,30 +34,38 @@
 			</form>
 		</div>
 	</div>
+	-->
 </header>
 <body>
-	<!--Feed/Tab-->
 	<div class="Container">
-		<!--
-		<div id="Feed">
+		<div class="bar">
+			<button class="bar-item button" onclick="changeTab('Feed')">Feed</button>
+			<button class="bar-item button" onclick="changeTab('Camera')">Camera</button>
+			<button class="bar-item button" onclick="changeTab('Profile')">Profile</button>
 		</div>
-		<div id="Sidebar">
+		<div class="tab Holder" id="Camera">
+			<div>
+				<video id="video">Video is loading...</video>
+			</div>
+			<div class="bar">
+				<button class="button fwidth" id="snap">Snap Photo</button>
+			</div>
+			<form action="add_pic.php" method="POST">
+			<canvas id="canvas" width="640" height="480">Canvas Still Loading</canvas>
+			<div class="Warning">
+				<p>Please rotate phone to edit picture.</p>
+			</div>
+			<div id="options">
+				<input type="submit" name="Submit" class="button" id="button">
+			</div>
+			</form>
+			<button class="button" id="delete_snap">Cancel</button>
 		</div>
-	</div> -->
-	<div class="bar">
-		<button class="bar-item button" onclick="changeTab('Feed')">Feed</button>
-		<button class="bar-item button" onclick="changeTab('Camera')">Camera</button>
-		<button class="bar-item button" onclick="changeTab('Profile')">Profile</button>
+		<div class="tab" id="Feed">
+		</div>
+		<div class="tab" id="Profile">
+				this is text 3
 	</div>
-	<div class="tab" id="Camera">
-			<video id="video"></video>
-			<button id="snap">Snap Photo</button>
-			<canvas id="canvas" width="640" height="480"></canvas>
-	</div>
-	<div class="tab" id="Feed">
-	</div>
-	<div class="tab" id="Profile">
-			this is text 3
 	</div>
 </body>
 <!--Footer-->

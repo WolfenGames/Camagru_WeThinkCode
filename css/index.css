@@ -5,17 +5,14 @@
 
 body
 {
+    margin: auto;
     background-color: #807989;
-}
-
-#video
-{
-    background: green;
 }
 
 #canvas
 {
-    background: green;
+    width: 100%    !important;
+    height: auto   !important;
 }
 
 header
@@ -41,7 +38,7 @@ header
 
 .Title
 {
-    display: block;
+    display: flex;
     width: 70%;
 }
 
@@ -95,7 +92,7 @@ table
     border-radius: 5px;
     width: 100%;
     text-align: center;
-    display: inline-block;
+    display: inline-flex;
     font-size: 16px;
 }
 
@@ -112,18 +109,17 @@ body
 
 .Container
 {
-    display: flex;
     margin: auto;
-    flex-direction: row;
+    display: flex;
+    flex-direction: column;
     background: #363B46;
-    height: 86%;
-    width: 100%;
+    height: 100%;
+    width: 95%;
 }
 
 #Feed
 {
-    margin: 5px;
-    width: 75%;
+    width: 100%;
     height: 100%;
     background: #918C9D;
 }
@@ -142,7 +138,97 @@ video
     height: auto   !important;
 }
 
-@media screen and (max-width: 600px) {
-    .topnav.responsive {position: relative;}
-  }
-  
+.Holder
+{
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.Camera
+{
+    height: 100%;
+    width: 100%;
+}
+
+.bar
+{
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    flex-direction: row;
+}
+
+.fwidth
+{
+    width: 100%;
+}
+
+.button
+{
+    background-color: rgb(94, 94, 94);
+    border: none;
+    color: white;
+    padding: 8px 16px;
+    margin: 5px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 2vh;
+}
+#canvas
+{
+    width: 100%    !important;
+    height: auto   !important;
+}
+
+.Warning
+{
+    display: none;
+}
+
+@media screen and (min-width: 320px) and (max-width: 767px) and (orientation: portrait)
+{
+    .Warning
+    {
+        display: none;
+    }
+    footer
+    {
+        border-radius: 1px;
+    }
+    header
+    {
+        border-radius: 1px;
+    }
+}
+
+@media screen and (min-width: 320px) and (max-width: 767px) and (orientation: landscape) {
+    video
+    {
+        display: flex;
+        flex-direction: row;
+        overflow-y: scroll;
+        height: 220px !important;
+        width: 100% !important;
+    }
+    .Warning
+    {
+        display: block;
+    }
+    #canvas
+    {
+        display: none !important;
+    }
+    #options
+    {
+        display: none !important;
+    }
+    footer
+    {
+        border-radius: 1px;
+    }
+    header
+    {
+        border-radius: 1px;
+    }
+}
