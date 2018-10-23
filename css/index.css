@@ -136,6 +136,12 @@ body
     background: #918C9D;
 }
 
+video
+{
+    width: 100%    !important;
+    height: auto   !important;
+}
+
 @media screen and (max-width: 600px) {
     .topnav.responsive {position: relative;}
   }

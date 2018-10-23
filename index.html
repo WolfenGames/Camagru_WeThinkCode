@@ -37,14 +37,26 @@
 <body>
 	<!--Feed/Tab-->
 	<div class="Container">
+		<!--
 		<div id="Feed">
-				<video id="video"></video>
-				<button id="snap">Snap Photo</button>
-				<canvas id="canvas"></canvas>
 		</div>
-		<!--Sidebar-->
 		<div id="Sidebar">
 		</div>
+	</div> -->
+	<div class="bar">
+		<button class="bar-item button" onclick="changeTab('Feed')">Feed</button>
+		<button class="bar-item button" onclick="changeTab('Camera')">Camera</button>
+		<button class="bar-item button" onclick="changeTab('Profile')">Profile</button>
+	</div>
+	<div class="tab" id="Camera">
+			<video id="video"></video>
+			<button id="snap">Snap Photo</button>
+			<canvas id="canvas" width="640" height="480"></canvas>
+	</div>
+	<div class="tab" id="Feed">
+	</div>
+	<div class="tab" id="Profile">
+			this is text 3
 	</div>
 </body>
 <!--Footer-->
