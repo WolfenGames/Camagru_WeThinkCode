@@ -67,6 +67,27 @@ function add_tree()
     base_image = new Image();
     base_image.src = 'img/tree.png';
     base_image.onload = function(){
-    context.drawImage(base_image, 10, 10, 300, 480);
+    context.drawImage(base_image, Math.floor((Math.random() * 620)), 10,
+                        Math.floor((Math.random() * 300) + 1),
+                        Math.floor((Math.random() * 480) + 1));//300, 480);
     }
 }
+
+function sendData() {
+    var XHR = new XMLHttpRequest();
+
+    var img_data = document.querySelector("#canvas").toDataURL();
+
+    XHR.addEventListener('load', function(event) {
+      console.log("Success???");
+      console.log(this.response);
+    });
+  
+    XHR.addEventListener('error', function(event) {
+      alert('Oops! Something went wrong.');
+    });
+  
+    XHR.open('GET', 'add_pic.php?img='+img_data);
+  
+    XHR.send();
+  }

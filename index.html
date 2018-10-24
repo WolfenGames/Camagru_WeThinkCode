@@ -29,17 +29,17 @@
 			<div class="bar">
 				<button class="button fwidth" id="snap">Snap Photo</button>
 			</div>
-			<form action="add_pic.php" method="POST">
-			<canvas id="canvas" width="640" height="480">Canvas Still Loading</canvas>
-			<div class="Warning">
-				<p>Please rotate phone to edit picture.</p>
-			</div>
-			<div id="options">
-				<input type="submit" name="Submit" class="button" id="button">
-				<input type="button" name="addTree" class="addTree button" value="Add Tree">
-			</div>
-			<div>
-			</div>
+			<form class="SubmitForm" action="add_pic.php" method="POST">
+				<canvas name="image" id="canvas" width="640" height="480">Canvas Still Loading</canvas>
+				<div class="Warning">
+					<p>Please rotate phone to edit picture.</p>
+				</div>
+				<div id="options">
+					<input type="button" name="Submit" class="button" onclick="sendData()" id="button" value="Submit Photo">
+					<input type="button" class="addTree button" value="Add Tree">
+				</div>
+				<div>
+				</div>
 			</form>
 			<button class="button" id="delete_snap">Cancel</button>
 		</div>
