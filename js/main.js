@@ -42,6 +42,7 @@ function click (){
     context.drawImage(video, 0, 0);
     document.querySelector("#video").style.display = "none";
     document.querySelector("#snap").style.display = "none";
+    document.querySelector(".addTree").addEventListener("click", add_tree);
     document.querySelector("#options").style.display = "block";
     hasCam = true;
 }
@@ -59,4 +60,13 @@ function changeTab(tabName) {
     }
     document.getElementById(tabName).style.display = "block";
     CameraStuff();
+}
+
+function add_tree()
+{
+    base_image = new Image();
+    base_image.src = 'img/tree.png';
+    base_image.onload = function(){
+    context.drawImage(base_image, 10, 10, 300, 480);
+    }
 }
