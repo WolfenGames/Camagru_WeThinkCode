@@ -36,10 +36,13 @@ function cancel_click(){
 }
 
 function click (){
-    document.querySelector("#canvas").style.display = "block";    
     var img = document.querySelector("#canvas");
+    var video = document.querySelector("#video");
+    img.style.display = "block";
+    img.width = video.offsetWidth;
+    img.height = video.offsetHeight;
     context = img.getContext('2d');
-    context.drawImage(video, 0, 0);
+    context.drawImage(video, 0, 0, video.offsetWidth, video.offsetHeight);
     document.querySelector("#video").style.display = "none";
     document.querySelector("#snap").style.display = "none";
     document.querySelector(".addTree").addEventListener("click", add_tree);
@@ -64,30 +67,39 @@ function changeTab(tabName) {
 
 function add_tree()
 {
+    var canvas = document.querySelector("canvas");
     base_image = new Image();
     base_image.src = 'img/tree.png';
     base_image.onload = function(){
-    context.drawImage(base_image, Math.floor((Math.random() * 620)), 10,
-                        Math.floor((Math.random() * 300) + 1),
-                        Math.floor((Math.random() * 480) + 1));//300, 480);
+        context.drawImage(base_image, Math.floor((Math.random() * 620)), 10,
+                            Math.floor((Math.random() * canvas.width) + 1),
+                            Math.floor((Math.random() * canvas.height) + 1));//300, 480);
     }
+}
+
+function resize() {
+    var height = window.innerHeight;
+    var ratio = canvas.width / canvas.height;
+    var width = height * ratio;
+  
+    canvas.style.width = width + 'px';
+    canvas.style.height = height + 'px';
 }
 
 function sendData() {
     var XHR = new XMLHttpRequest();
-
-    var img_data = document.querySelector("#canvas").toDataURL();
+    var img_data = document.querySelector("#canvas").toDataURL("image/png");
 
     XHR.addEventListener('load', function(event) {
-      console.log("Success???");
-      console.log(this.response);
+        if (this.response)
+            alert(this.response);
+        else
+            alert("Uploaded");
     });
-  
     XHR.addEventListener('error', function(event) {
       alert('Oops! Something went wrong.');
     });
-  
-    XHR.open('GET', 'add_pic.php?img='+img_data);
-  
-    XHR.send();
+    XHR.open('POST', 'add_pic.php');
+    XHR.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    XHR.send("img=" + img_data);
   }

@@ -1,13 +1,17 @@
 <?php
-    echo ">>>?????>>>> \n";
-    var_dump($_POST);
-    echo ">>>?????>>>> \n";
-    foreach($_POST as $key=>$value)
-    {
-        var_dump($key);
-        echo "<br />";
-        var_dump($value);
-        echo "<br />";
+    require_once("setup/config.php");
+    $img_dat = $_POST['img'];
+    $query = "INSERT INTO `camagru`.`images` (`image_data`, `image_name`, `user_id`) VALUES (
+        '$img_dat',
+        'testName',
+        1
+    )";
+    try {
+        $db = $conn->prepare($query);
+        $db->execute();
+        echo "I have done the thing";
     }
-    $query = "INSERT INTO `image` VALUES (``";
-    //header("Location: ./");
+    catch(PDOException $e)
+    {
+        echo "Cannot upload -> " . $e->getMessage() . "<br />\n";
+    }
