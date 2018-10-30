@@ -1,6 +1,6 @@
 <?php
-
     require_once('config/config.php');
+    session_start();
 
     $query = "SELECT * FROM `camagru`.`images` ORDER BY `ID` DESC;";
 
@@ -18,11 +18,15 @@
                 echo "<div class='row'>";
             }
             echo ($i == 1) ? "<div class='col-md-4 img-block-1'>" : "<div class='col-md-4 img-block-2'>";
-            echo "<img onclick='delete_image(".$v['ID'].")' style='width: 100%; height: auto;' src='data:image/png; base64, " . $v['image_data'] . "'> <br />
+            echo "<img style='width: 100%; height: auto;' src='data:image/png; base64, " . $v['image_data'] . "'> <br />
                 <div class='img-options'>
                     <input class='btn' type='button' id='".$v['ID']."' onclick='like(this)' value='Like'>
-                    <input class='btn' type='button' id='".$v['ID']."' onclick='comment(this)' value='Comment'> 
-                </div>
+					<input class='btn' type='button' id='".$v['ID']."' onclick='comment(this)' value='Comment'>";
+            if (isset($_SESSION['Username']) && ($_SESSION['Username'] == $v['image_name']))
+            {
+                echo "<input type='button' class='btn' onclick='delete_image(".$v['ID'].")' value='Delete'>";
+            }
+            echo    "</div>
                 </div>";
             if ($i == 2)
             {

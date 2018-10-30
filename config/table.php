@@ -23,5 +23,7 @@
         `ID` INT PRIMARY KEY AUTO_INCREMENT,
         `username` Varchar(1024) NOT NULL,
         `password` Varchar(2056) NOT NULL,
-        `email` Varchar(1024) NOT NULL
+        `email` Varchar(1024) NOT NULL UNIQUE,
+        `isVerified` INT(1) DEFAULT 0,
+        `verifyKey` Varchar(1024) NOT NULL DEFAULT 'HelloWorld' UNIQUE
     );";

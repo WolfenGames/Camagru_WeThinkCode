@@ -10,18 +10,34 @@
 	<script src="js/main.js"></script>
 </head>
 <body>
-	
+	<?php
+		require_once("profile/functions.php");
+		session_start();
+		if (!isset($_SESSION['Username']))
+			if (login("Julian.w16@gmail.com", "123"))
+				header("Location: ./");
+	?>
 	<nav class="navbar navbar-default">
 		<div class="container-fluid">
-		  <div class="navbar-header">
+			<div class="navbar-header">
 			<a class="navbar-brand" href="#">Camagru of all Camagru's</a>
-		  </div>
-		  <button onclick="changeTab('Feed')" class="btn btn-link navbar-btn">Feed</button>
-		  <button onclick="changeTab('Camera')" class="btn btn-link navbar-btn">Camera</button>
-		  <button onclick="changeTab('Profile')" class="btn btn-link navbar-btn">Profile</button>
+			</div>
+			<button onclick="changeTab('Feed')" class="btn btn-link navbar-btn">Feed</button>
+			<button onclick="changeTab('Camera')" class="btn btn-link navbar-btn">Camera</button>
+			<button onclick="changeTab('Profile')" class="btn btn-link navbar-btn">Profile</button>
+			<?php
+				if (isset($_SESSION['Username']))
+				{
+					?>
+					<form method="POST" action="logout.php">
+						<button class="btn btn-link navbar-btn" type="submit">Logout</button>
+					</form>
+					<?php
+				}
+			?>
 		</div>
-	  </nav>
-		
+	</nav>
+
 	<div class="container">
 
 		<div class="tab" id="Feed">
@@ -51,5 +67,4 @@
 		</div>
 	</div>
 </body>
-
 </html>

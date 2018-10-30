@@ -1,5 +1,7 @@
 <?php
     require_once("config/config.php");
+    session_start();
+
     if (isset($_POST['img']))
     {
         $img = $_POST['img'];
@@ -8,11 +10,13 @@
 
         $query = "INSERT INTO `camagru`.`images` (`image_data`, `image_name`, `user_id`) VALUES (
             '$img',
-            'testName',
-            1
+            :uname,
+            :userid
         )";
         try {
             $db = $conn->prepare($query);
+            $db->bindParam(":uname", $_SESSION['Username']);
+            $db->bindParam(":userid", $_SESSION['UID']);
             $db->execute();
             echo "I have done the thing";
         }
