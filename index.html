@@ -6,53 +6,50 @@
 	<title>Camagru of all Camagru's</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" type="text/css" media="screen" href="css/index.css" />
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 	<script src="js/main.js"></script>
 </head>
-<!--Header-->
-<header>
-	<div id="HeaderContainer">
-		<div class="Title">
-			<p class="HTitle">Camagru of all Camagru's</p>
-		</div>
-</header>
 <body>
-	<div class="Container">
-		<div class="bar">
-			<button class="bar-item button" onclick="changeTab('Feed')">Feed</button>
-			<button class="bar-item button" onclick="changeTab('Camera')">Camera</button>
-			<button class="bar-item button" onclick="changeTab('Profile')">Profile</button>
+	
+	<nav class="navbar navbar-default">
+		<div class="container-fluid">
+		  <div class="navbar-header">
+			<a class="navbar-brand" href="#">Camagru of all Camagru's</a>
+		  </div>
+		  <button onclick="changeTab('Feed')" class="btn btn-link navbar-btn">Feed</button>
+		  <button onclick="changeTab('Camera')" class="btn btn-link navbar-btn">Camera</button>
+		  <button onclick="changeTab('Profile')" class="btn btn-link navbar-btn">Profile</button>
 		</div>
-		<div class="tab Holder" id="Camera">
-			<div>
-				<video id="video">Video is loading...</video>
-			</div>
-			<div class="bar">
-				<button class="button fwidth" id="snap">Snap Photo</button>
-			</div>
-			<form class="SubmitForm" action="add_pic.php" method="POST">
-				<canvas name="image" id="canvas">Canvas Still Loading</canvas>
-				<div class="Warning">
-					<p>Please rotate phone to edit picture.</p>
-				</div>
-				<div id="options">
-					<input type="button" name="Submit" class="button" onclick="sendData()" id="button" value="Submit Photo">
-					<input type="button" class="addTree button" value="Add Tree">
-				</div>
-				<div>
-				</div>
-			</form>
-			<button class="button" id="delete_snap">Cancel</button>
-		</div>
+	  </nav>
+		
+	<div class="container">
+
 		<div class="tab" id="Feed">
+			<div id="gallery">
+
+			</div>
 		</div>
+
+		<div class="tab" id="Camera">
+				<div>
+					<video id="video">Video is loading...</video>
+				</div>
+				<div class="bar">
+					<div style="margin: auto;">
+						<input type="button" value="Take the Shot!!" id="snap">
+					</div>
+				</div>
+				<canvas name="image" id="canvas">Canvas Still Loading</canvas>
+				<div id="options">
+					<input type="button" class="button" name="Submit" onclick="sendData()" id="button" value="Submit Photo">
+				</div>
+				<input type="button" value="Cancel" id="delete_snap">
+		</div>
+
 		<div class="tab" id="Profile">
-				this is text 3
-	</div>
+
+		</div>
 	</div>
 </body>
-<!--Footer-->
-<footer>
-	<p class="Footer">© jwolf 2018</p>
-</footer>
+
 </html>
