@@ -135,4 +135,13 @@ function delete_image(id)
     XHR.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     XHR.send("ID=" + id);
 }
-  
+
+function like(id)
+{
+
+}
+
+function comment(id)
+{
+    
+}
