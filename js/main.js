@@ -68,6 +68,8 @@ function changeTab(tabName) {
         retrieveImage();
     if (document.getElementById("Camera").style.display === "block")
         CameraStuff();
+	if (document.getElementById("Profile").style.display === "block")
+		profileStuff();
 }
 
 function resize() {
@@ -105,11 +107,15 @@ function sendData()
     XHR.addEventListener('load', function(event) {
         if (this.response)
         {
-            cancel_click();
-            changeTab("Feed");
+			alert("Please make sure you are logged in!");
+			cancel_click();
+			changeTab("Profile");
         }
-        else
-            alert("Error???");
+		else
+		{
+			cancel_click();
+			changeTab("Feed");
+		}
     });
     XHR.addEventListener('error', function(event) {
     alert('Oops! Something went wrong.');
@@ -134,6 +140,20 @@ function delete_image(id)
     XHR.open('POST', 'delete_image.php');
     XHR.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     XHR.send("ID=" + id);
+}
+
+function profileStuff()
+{
+    var XHR = new XMLHttpRequest();
+    XHR.addEventListener('load', function(event) {
+		document.querySelector("#Profile").innerHTML = this.response;
+    });
+    XHR.addEventListener('error', function(event) {
+      alert('Oops! Something went wrong.');
+    });
+    XHR.open('POST', 'profile/profile.php');
+    XHR.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    XHR.send();
 }
 
 function like(id)

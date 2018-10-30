@@ -18,7 +18,6 @@
             $db->bindParam(":uname", $_SESSION['Username']);
             $db->bindParam(":userid", $_SESSION['UID']);
             $db->execute();
-            echo "I have done the thing";
         }
         catch(PDOException $e)
         {

@@ -13,9 +13,6 @@
 	<?php
 		require_once("profile/functions.php");
 		session_start();
-		if (!isset($_SESSION['Username']))
-			if (login("Julian.w16@gmail.com", "123"))
-				header("Location: ./");
 	?>
 	<nav class="navbar navbar-default">
 		<div class="container-fluid">
