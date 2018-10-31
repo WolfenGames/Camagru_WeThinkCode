@@ -131,22 +131,42 @@
 		}
 	}
 
+	function dislike($id)
+	{
+		global $conn;
+		try
+		{
+			$query = "DELETE FROM `camagru`.`likes` WHERE `ref_id` = :id AND `likes` = :myid;";
+			$stmt = $conn->prepare($query);
+			$myid = $_SESSION['UID'];
+			$stmt->bindParam(":id", $id);
+			$stmt->bindParam(":myid", $myid);
+			$stmt->execute();
+		}
+		catch (PDOException $e)
+		{
+			echo "Failed to like -> " . $e;
+		}
+	}
+
 	function hasLiked($id)
 	{
 		global $conn;
 		try
 		{
-			$query = "SELECT * FROM `camagru`.`likes` WHERE `ref_id` = :id; AND `likes` = $id";
+			$query = "SELECT * FROM `camagru`.`likes` WHERE `ref_id` = :id; AND `likes` = :myid";
 			$stmt = $conn->prepare($query);
-			$id = $_SESSION['ID'];
+			$myid = $_SESSION['UID'];
 			$stmt->bindParam(":id", $id);
+			$stmt->bindParam(":myid", $myid);
 			$stmt->execute();
 			$stmt->SetFetchMode(PDO::FETCH_ASSOC);
 			$like = $stmt->fetch();
-			if (isset($like))
-				return true;
-			else
+			if ($like)
 				return false;
+			else
+				return true;
+
 		}
 		catch (PDOException $e)
 		{

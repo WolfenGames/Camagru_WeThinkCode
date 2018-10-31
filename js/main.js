@@ -1,4 +1,4 @@
-var video, context, hasCam;
+var video, context, hasCam, state;
 
 function CameraStuff()
 {
@@ -17,7 +17,10 @@ function CameraStuff()
                 } catch (error) {
                     video.src = window.URL.createObjectURL(stream);
                 }
-                video.play();
+				video.play();
+				video.onloadeddata = function() {
+					document.querySelector("#snap").style.display = "block";
+				};
             });
         }else
             document.getElementById("Camera").innerHTML = "<p> NO CAMERA </p>";
@@ -52,10 +55,12 @@ function click (){
 }
 
 window.onload = function(){
-    hasCam = false;
+	hasCam = false;
+	this.document.querySelector("#snap").style.display = "none";
     changeTab("Feed");
 	retrieveImage();
 	setInterval("retrieveImage()", 10000);
+	state = 1;
 }
 
 function changeTab(tabName) {
@@ -68,7 +73,46 @@ function changeTab(tabName) {
     if (document.getElementById("Feed").style.display === "block")
         retrieveImage();
     if (document.getElementById("Camera").style.display === "block")
-        CameraStuff();
+		CameraStuff();
+	if (document.getElementById("Profile").style.display === "block")
+		profileStuff();
+}
+
+function setState(num)
+{
+	state = num;
+	profileStuff();
+}
+
+function profileStuff()
+{
+	switch(state)
+	{
+		case 1:
+			document.getElementById("NewMember").style.display = "none";
+			document.getElementById("AlreadyMember").style.display = "block";
+			document.getElementById("ForgotPassword").style.display = "block";
+			document.getElementById("Other").style.display = "block";
+			break;
+		case 2:
+			document.getElementById("NewMember").style.display = "block";
+			document.getElementById("AlreadyMember").style.display = "none";
+			document.getElementById("ForgotPassword").style.display = "block";
+			document.getElementById("Other").style.display = "block";
+			break;
+		case 3:
+			document.getElementById("NewMember").style.display = "block";
+			document.getElementById("AlreadyMember").style.display = "block";
+			document.getElementById("ForgotPassword").style.display = "none";
+			document.getElementById("Other").style.display = "block";
+			break;
+		case 4:
+			document.getElementById("NewMember").style.display = "block";
+			document.getElementById("AlreadyMember").style.display = "block";
+			document.getElementById("ForgotPassword").style.display = "block";
+			document.getElementById("Other").style.display = "none";
+			break;
+	}
 }
 
 function resize() {
@@ -155,6 +199,23 @@ function like(id)
       alert('Oops! Something went wrong.');
     });
     XHR.open('POST', 'images/like.php');
+    XHR.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    XHR.send("ID=" + id);
+}
+
+function dislike(id)
+{
+	var XHR = new XMLHttpRequest();
+    XHR.addEventListener('load', function(event) {
+        if (this.response)
+            alert(this.response);
+        else
+            retrieveImage();
+    });
+    XHR.addEventListener('error', function(event) {
+      alert('Oops! Something went wrong.');
+    });
+    XHR.open('POST', 'images/dislike.php');
     XHR.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     XHR.send("ID=" + id);
 }

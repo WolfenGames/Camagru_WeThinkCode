@@ -10,7 +10,7 @@
     $table_likes_query = "CREATE TABLE IF NOT EXISTS `camagru`.`likes` (
         `ID` INT PRIMARY KEY AUTO_INCREMENT,
         `ref_id` INT NOT NULL,
-        `likes` INT NOT NULL UNIQUE
+        `likes` INT NOT NULL
     );";
     $table_comment_query = "CREATE TABLE IF NOT EXISTS `camagru`.`comments` (
         `ID` INT PRIMARY KEY AUTO_INCREMENT,

@@ -56,6 +56,12 @@
 	}else
 	{
 		?>
+		<div class="row prof-select">
+			<button class="btn prof-butt" id="AlreadyMember" onclick="setState(1)">Already a member</button>
+			<button class="btn prof-butt" id="NewMember" onclick="setState(2)">New Member</button>
+			<button class="btn prof-butt" id="ForgotPassword" onclick="setState(3)">Forgot Password</button>
+			<button class="btn prof-butt" id="Other" onclick="setState(4)">Other</button>
+		</div>
 		<!-- LOGGED OUT -->
 		<div class="user-login">
 			<label class="log-title">Old User???</label>
@@ -66,7 +72,7 @@
 				</div>
 				<div class="form-group">
 					<label class="text-primary" for="pwd">Password</label>
-					<input class="form-control" type="password" name="password">
+					<input class="form-control" type="password" placeholder="Password" name="password">
 				</div>
 				<button type="submit" class="btn btn-primary">Login</button>
 			</form>
@@ -77,19 +83,19 @@
 			<form method="post" action="profile/create.php">
 				<div class="form-group">
 					<label class="text-primary" for="email">Email</label>
-					<input type="email" class="form-control" value="<?php echo $_SESSION['Email'];?>">
+					<input type="email" class="form-control" placeholder="example@host.com">
 				</div>
 				<div class="form-group">
 					<label class="text-primary" for="text">Username</label>
-					<input type="text" class="form-control" value="<?php echo $_SESSION['Username'];?>">
+					<input type="text" class="form-control" placeholder="Username">
 				</div>
 				<div class="form-group">
-					<label class="text-warning"  for="pwd">New Password</label>
-					<input class="form-control" type="password" name="newPass">
+					<label class="text-warning"  for="pwd">Password</label>
+					<input class="form-control" type="password" placeholder="Password" name="newPass">
 				</div>
 				<div class="form-group">
-					<label class="text-warning"  for="pwd">Confirm new Password</label>
-					<input class="form-control" type="password" name="cNewPass">
+					<label class="text-warning"  for="pwd">Confirm Password</label>
+					<input class="form-control" type="password" placeholder="Confirm Password" name="cNewPass">
 				</div>
 				<button type="submit" class="btn btn-primary">Register</button>
 			</form>
@@ -100,7 +106,7 @@
 			<form action="profile/profile.php?method=resend" method="POST">
 				<div class="form-group">
 					<label class="text-primary" for="email">Email</label>
-					<input type="email" class="form-control" value="<?php echo $_SESSION['Email'];?>">
+					<input type="email" class="form-control" placeholder="example@host.com">
 				</div>
 				<button type="submit" class="btn btn-primary">Resend Email</button>
 			</form>
@@ -110,7 +116,7 @@
 			<form action="profile/profile.php?method=resend" method="POST">
 				<div class="form-group">
 					<label class="text-primary" for="email">Email</label>
-					<input type="email" class="form-control" value="<?php echo $_SESSION['Email'];?>">
+					<input type="email" class="form-control" placeholder="example@host.com">
 				</div>
 				<button type="submit" class="btn btn-primary">Send Email</button>
 			</form>

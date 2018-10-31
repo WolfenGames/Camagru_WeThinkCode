@@ -93,6 +93,15 @@ input[type=button]
 	width: 100%;
 }
 
+.prof-select
+{
+	padding: 10px;
+}
+.prof-butt
+{
+	margin: auto;
+}
+
 @media screen and (orientation: landscape)
 {
 	*
