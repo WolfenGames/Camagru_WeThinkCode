@@ -27,25 +27,95 @@
 	{
 		?>
 		<!-- LOGGED IN -->
-			Logged in		
+		<div class="user-control">
+			<form method="post" action="profile/update.php">
+				<div class="form-group">
+					<label class="text-primary" for="email">Email</label>
+					<input type="email" class="form-control" value="<?php echo $_SESSION['Email'];?>">
+				</div>
+				<div class="form-group">
+					<label class="text-primary" for="text">Username</label>
+					<input type="text" class="form-control" value="<?php echo $_SESSION['Username'];?>">
+				</div>
+				<div class="form-group">
+					<label class="text-warning" for="pwd">Old Password</label>
+					<input  class="form-control"type="password" name="oldPass">
+				</div>
+				<div class="form-group">
+					<label class="text-warning"  for="pwd">New Password</label>
+					<input class="form-control" type="password" name="newPass">
+				</div>
+				<div class="form-group">
+					<label class="text-warning"  for="pwd">Confirm new Password</label>
+					<input class="form-control" type="password" name="cNewPass">
+				</div>
+				<button type="submit" class="btn btn-primary">Update</button>
+			</form>
+		</div>	
 		<?php
 	}else
 	{
 		?>
 		<!-- LOGGED OUT -->
+		<div class="user-login">
+			<label class="log-title">Old User???</label>
+			<form action="profile/profile.php?method=login" method="POST">
+				<div class="form-group">
+					<label class="text-primary" for="email">Email</label>
+					<input class="form-control" type="email" placeholder="example@host.com" name="email">
+				</div>
+				<div class="form-group">
+					<label class="text-primary" for="pwd">Password</label>
+					<input class="form-control" type="password" name="password">
+				</div>
+				<button type="submit" class="btn btn-primary">Login</button>
+			</form>
+		</div>
+		
+		<div class="user-control">
+			<label class="log-title"> New User???</label>
+			<form method="post" action="profile/create.php">
+				<div class="form-group">
+					<label class="text-primary" for="email">Email</label>
+					<input type="email" class="form-control" value="<?php echo $_SESSION['Email'];?>">
+				</div>
+				<div class="form-group">
+					<label class="text-primary" for="text">Username</label>
+					<input type="text" class="form-control" value="<?php echo $_SESSION['Username'];?>">
+				</div>
+				<div class="form-group">
+					<label class="text-warning"  for="pwd">New Password</label>
+					<input class="form-control" type="password" name="newPass">
+				</div>
+				<div class="form-group">
+					<label class="text-warning"  for="pwd">Confirm new Password</label>
+					<input class="form-control" type="password" name="cNewPass">
+				</div>
+				<button type="submit" class="btn btn-primary">Register</button>
+			</form>
+		</div>
 
-		<form action="profile/profile.php?method=login" method="POST">
-			<p>Email:</p>
-			<p><input type="text" name="email"></p>
-			<p>Password: </p>
-			<p><input type="password" name="password"></p>
-			<p><input type="submit" name="submit" value="Login"><p>
-		</form>
-		<form action="profile/profile.php?method=resend" method="POST">
-			<p>Email:</p>
-			<p><input type="text" name="email"></p>
-			<p><input type="submit" name="submit" value="Login"><p>
-		</form>
+		<div class="user-resubmit">
+			<label class="log-title">Didn`t recieve a verification email? Try again</label>
+			<form action="profile/profile.php?method=resend" method="POST">
+				<div class="form-group">
+					<label class="text-primary" for="email">Email</label>
+					<input type="email" class="form-control" value="<?php echo $_SESSION['Email'];?>">
+				</div>
+				<button type="submit" class="btn btn-primary">Resend Email</button>
+			</form>
+		</div>
+		<div class="user-resubmit">
+			<label class="log-title">Forgot Password?</label>
+			<form action="profile/profile.php?method=resend" method="POST">
+				<div class="form-group">
+					<label class="text-primary" for="email">Email</label>
+					<input type="email" class="form-control" value="<?php echo $_SESSION['Email'];?>">
+				</div>
+				<button type="submit" class="btn btn-primary">Send Email</button>
+			</form>
+		</div>
+
 		<?php
 	}
 ?>

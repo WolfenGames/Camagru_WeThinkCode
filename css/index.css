@@ -1,6 +1,7 @@
 *
 {
-    font-family: Arial, Helvetica, monospace;
+	font-family: Arial, Helvetica, monospace;
+	font-size: 2vh !important;
 }
 
 nav
@@ -45,10 +46,7 @@ video
     margin: auto;
     background-color: #232974;
 }
-.bar
-{
-    padding: auto;
-}
+
 input[type=button]
 {
     width: 100%;
@@ -64,4 +62,41 @@ input[type=button]
     text-align: center;
     margin-left: auto;
     margin-right: auto;
+}
+
+.user-login
+{
+	background-color: #EF944C;
+	padding: 20px;
+}
+
+.user-resubmit
+{
+	background-color: #F5EAB7;
+	padding: 20px;
+}
+
+.user-control
+{
+	background-color: #EF944C;
+	padding: 20px;
+}
+
+.log-title
+{
+	color: #232974;
+}
+
+.display-img
+{
+	height: auto;
+	width: 100%;
+}
+
+@media screen and (orientation: landscape)
+{
+	*
+	{
+		font-size: 3vh;
+	}
 }

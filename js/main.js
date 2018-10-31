@@ -54,7 +54,8 @@ function click (){
 window.onload = function(){
     hasCam = false;
     changeTab("Feed");
-    retrieveImage();
+	retrieveImage();
+	setInterval("retrieveImage()", 10000);
 }
 
 function changeTab(tabName) {
@@ -68,8 +69,6 @@ function changeTab(tabName) {
         retrieveImage();
     if (document.getElementById("Camera").style.display === "block")
         CameraStuff();
-//	if (document.getElementById("Profile").style.display === "block")
-//		profileStuff();
 }
 
 function resize() {
@@ -83,20 +82,23 @@ function resize() {
 
 function retrieveImage()
 {
-    var XHR = new XMLHttpRequest();
-    XHR.addEventListener('load', function(event) {
-        if (this.response)
-        {
-            document.querySelector("#gallery").innerHTML = this.response;
-        }
-        else
-            document.querySelector("#gallery").innerHTML = "<p>Upload some pictures guys, Im hungry for you pics</p>";
-    });
-    XHR.addEventListener('error', function(event) {
-      alert('Oops! Something went wrong.');
-    });
-    XHR.open('GET', 'display_images.php');
-    XHR.send();
+	if (document.querySelector("#Feed").style.display == "block")
+	{
+		var XHR = new XMLHttpRequest();
+		XHR.addEventListener('load', function(event) {
+			if (this.response)
+			{
+				document.querySelector("#gallery").innerHTML = this.response;
+			}
+			else
+				document.querySelector("#gallery").innerHTML = "<p>Upload some pictures guys, Im hungry for you pics</p>";
+		});
+		XHR.addEventListener('error', function(event) {
+			alert('Oops! Something went wrong.');
+		});
+		XHR.open('GET', 'display_images.php');
+		XHR.send();
+	}
 }
 
 function sendData() 
@@ -140,23 +142,21 @@ function delete_image(id)
     XHR.send("ID=" + id);
 }
 
-function profileStuff()
+function like(id)
 {
-    var XHR = new XMLHttpRequest();
+	var XHR = new XMLHttpRequest();
     XHR.addEventListener('load', function(event) {
-		document.querySelector("#Profile").innerHTML = this.response;
+        if (this.response)
+            alert(this.response);
+        else
+            retrieveImage();
     });
     XHR.addEventListener('error', function(event) {
       alert('Oops! Something went wrong.');
     });
-    XHR.open('POST', 'profile/profile.php');
+    XHR.open('POST', 'images/like.php');
     XHR.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    XHR.send();
-}
-
-function like(id)
-{
-
+    XHR.send("ID=" + id);
 }
 
 function comment(id)

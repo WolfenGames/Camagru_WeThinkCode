@@ -112,3 +112,44 @@
         else
             echo "Password is invalid!\n";
 	}
+
+	function like($id)
+	{
+		global $conn;
+		try
+		{
+			$query = "INSERT INTO `camagru`.`likes` (`ref_id`, `likes`) VALUES (:id, :myid);";
+			$stmt = $conn->prepare($query);
+			$myid = $_SESSION['UID'];
+			$stmt->bindParam(":id", $id);
+			$stmt->bindParam(":myid", $myid);
+			$stmt->execute();
+		}
+		catch (PDOException $e)
+		{
+			echo "Failed to like -> " . $e;
+		}
+	}
+
+	function hasLiked($id)
+	{
+		global $conn;
+		try
+		{
+			$query = "SELECT * FROM `camagru`.`likes` WHERE `ref_id` = :id; AND `likes` = $id";
+			$stmt = $conn->prepare($query);
+			$id = $_SESSION['ID'];
+			$stmt->bindParam(":id", $id);
+			$stmt->execute();
+			$stmt->SetFetchMode(PDO::FETCH_ASSOC);
+			$like = $stmt->fetch();
+			if (isset($like))
+				return true;
+			else
+				return false;
+		}
+		catch (PDOException $e)
+		{
+			echo "Failed to recieve likes -> " . $e;
+		}
+	}
