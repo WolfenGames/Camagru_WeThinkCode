@@ -1,25 +1,31 @@
 <?php
+	set_include_path("../");
     require_once("config/config.php");
 
     function login($email, $pass)
     {
         global $conn;
         $pass = hash("sha512", $pass);
-        $query = "SELECT * FROM `camagru`.`users` WHERE `password` = :pass LIMIT 1;";
+        $query = "SELECT * FROM `camagru`.`users` WHERE `email` = :email AND `password` = :pass LIMIT 1;";
         $stmt = $conn->prepare($query);
-        $stmt->bindParam(":pass", $pass);
+		$stmt->bindParam(":pass", $pass);
+		$stmt->bindParam(":email", $email);
         $stmt->execute();
         $stmt->SetFetchMode(PDO::FETCH_ASSOC);
-        $user = $stmt->fetch();
-        if ($user['isVerified'] == 0)
-            return false;
-        else
-        {
-            $_SESSION['Username'] = $user['username'];
-            $_SESSION['Email'] = $user['email'];
-            $_SESSION['UID'] = $user['ID'];
-            return true;
-        }
+		$user = $stmt->fetch();
+		if (isset($user))
+		{
+			if ($user['isVerified'] == 0)
+				return "Need Verify";
+			else
+			{
+				$_SESSION['Username'] = $user['username'];
+				$_SESSION['Email'] = $user['email'];
+				$_SESSION['UID'] = $user['ID'];
+				return "Logged in";
+			}
+		}
+		return "No info";
     }
 
     function logout()
@@ -53,8 +59,9 @@
         $to = $email;
         $subject = "Verify Camagru Account";
         $message = "<html><body>";
-        $message .= "Please click on the following link to allow us to activate you account\n";
-        $message .= "<a href='http://".$_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']."/../verify.php?verify=".$key."'><p>Click me!!</p></a>";
+		$message .= "Please click on the following link to allow us to activate you account\n";
+		$loc = str_replace("?method=resend", "", $_SERVER['REQUEST_URI']);
+        $message .= "<a href='http://".$_SERVER['HTTP_HOST'] . $loc ."/../verify.php?verify=".$key."'><p>Click me!!</p></a>";
         $message .= "</body></html>";
         $headers = "From:" . $from . "\r\n";
         $headers .= 'Content-type: text/html; charset=utf-8' . "\r\n";
@@ -64,12 +71,19 @@
 
     function delete_account($email, $pass)
     {
-        global $conn;
-        $pass = hash("sha512", $pass);
-        $query = "DELETE FROM `camagru`.`users` WHERE `password` = :pass LIMIT 1;";
-        $stmt = $conn->prepare($query);
-        $stmt->bindParam(":pass", $pass);
-        $stmt->execute();
+		global $conn;
+		try
+		{
+			$pass = hash("sha512", $pass);
+			$query = "DELETE FROM `camagru`.`users` WHERE `password` = :pass LIMIT 1;";
+			$stmt = $conn->prepare($query);
+			$stmt->bindParam(":pass", $pass);
+			$stmt->execute();
+		}
+		catch(PDOException $e)
+		{
+			echo "Can`t delete -> " . $e->getMessage();
+		}
     }
 
     function register($login, $email, $pass, $veripass)
@@ -97,4 +111,4 @@
         }
         else
             echo "Password is invalid!\n";
-    }
+	}

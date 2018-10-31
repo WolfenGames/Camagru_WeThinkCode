@@ -9,7 +9,8 @@
             $query = "UPDATE `camagru`.`users` SET `isVerified` = 1 WHERE `verifyKey` = :verkey;";
             $stmt = $conn->prepare($query);
             $stmt->bindParam(":verkey", $key);
-            $stmt->execute();
+			$stmt->execute();
+			header("Location: ../");
         }
         catch (PDOException $e)
         {

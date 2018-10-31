@@ -60,7 +60,9 @@
 		</div>
 
 		<div class="tab" id="Profile">
-
+				<?php
+					include("profile/profile.php");
+				?>
 		</div>
 	</div>
 </body>

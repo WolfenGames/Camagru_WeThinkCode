@@ -68,8 +68,8 @@ function changeTab(tabName) {
         retrieveImage();
     if (document.getElementById("Camera").style.display === "block")
         CameraStuff();
-	if (document.getElementById("Profile").style.display === "block")
-		profileStuff();
+//	if (document.getElementById("Profile").style.display === "block")
+//		profileStuff();
 }
 
 function resize() {
@@ -107,9 +107,7 @@ function sendData()
     XHR.addEventListener('load', function(event) {
         if (this.response)
         {
-			alert("Please make sure you are logged in!");
-			cancel_click();
-			changeTab("Profile");
+			alert(this.response);
         }
 		else
 		{

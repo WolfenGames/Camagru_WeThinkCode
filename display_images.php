@@ -18,7 +18,9 @@
                 echo "<div class='row'>";
             }
             echo ($i == 1) ? "<div class='col-md-4 img-block-1'>" : "<div class='col-md-4 img-block-2'>";
-            echo "<img style='width: 100%; height: auto;' src='data:image/png; base64, " . $v['image_data'] . "'> <br />
+			echo "
+				<p style='color: #EF944C;'>".$v['image_name']."</p>
+				<img style='width: 100%; height: auto;' src='data:image/png; base64, " . $v['image_data'] . "'> <br />
                 <div class='img-options'>
                     <input class='btn' type='button' id='".$v['ID']."' onclick='like(this)' value='Like'>
 					<input class='btn' type='button' id='".$v['ID']."' onclick='comment(this)' value='Comment'>";
