@@ -57,13 +57,13 @@
 	{
 		?>
 		<div class="row prof-select">
-			<button class="btn prof-butt" id="AlreadyMember" onclick="setState(1)">Already a member</button>
+			<button class="btn prof-butt" id="AlreadyMember" onclick="setState(1)">Old member</button>
 			<button class="btn prof-butt" id="NewMember" onclick="setState(2)">New Member</button>
 			<button class="btn prof-butt" id="ForgotPassword" onclick="setState(3)">Forgot Password</button>
 			<button class="btn prof-butt" id="Other" onclick="setState(4)">Other</button>
 		</div>
 		<!-- LOGGED OUT -->
-		<div class="user-login">
+		<div id="user-login" class="user-login">
 			<label class="log-title">Old User???</label>
 			<form action="profile/profile.php?method=login" method="POST">
 				<div class="form-group">
@@ -78,7 +78,7 @@
 			</form>
 		</div>
 		
-		<div class="user-control">
+		<div id="user-control" class="user-control">
 			<label class="log-title"> New User???</label>
 			<form method="post" action="profile/create.php">
 				<div class="form-group">
@@ -101,7 +101,7 @@
 			</form>
 		</div>
 
-		<div class="user-resubmit">
+		<div id="user-resubmit-email" class="user-resubmit-email">
 			<label class="log-title">Didn`t recieve a verification email? Try again</label>
 			<form action="profile/profile.php?method=resend" method="POST">
 				<div class="form-group">
@@ -111,7 +111,7 @@
 				<button type="submit" class="btn btn-primary">Resend Email</button>
 			</form>
 		</div>
-		<div class="user-resubmit">
+		<div id="user-resubmit" class="user-resubmit">
 			<label class="log-title">Forgot Password?</label>
 			<form action="profile/profile.php?method=resend" method="POST">
 				<div class="form-group">

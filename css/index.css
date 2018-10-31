@@ -70,6 +70,12 @@ input[type=button]
 	padding: 20px;
 }
 
+.user-resubmit-email
+{
+	background-color: #F5EAB7;
+	padding: 20px;
+}
+
 .user-resubmit
 {
 	background-color: #F5EAB7;
@@ -99,7 +105,9 @@ input[type=button]
 }
 .prof-butt
 {
+	width: 33%;
 	margin: auto;
+	word-wrap: normal;
 }
 
 @media screen and (orientation: landscape)
