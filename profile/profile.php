@@ -15,11 +15,26 @@
 				echo "Danger robinson " . $e->getMessage();
 			}
 		}
+		if ($method == 'register')
+		{
+			try
+			{
+				header("Location: ../?error=" . register($_POST['uname'], $_POST['email'], $_POST['newPass'], $_POST['cNewPass']));
+			}
+			catch (PDOException $e)
+			{
+				echo "Danger robinson " . $e->getMessage();
+			}
+		}
 		if ($method == "resend")
 		{
-			$_POST['email'] = "Julian.w16@gmail.com";
-			resend_verify($_POST['email']);
-			header("Location: ../");
+			if ($_POST['email'])
+			{
+				resend_verify($_POST['email']);
+				header("Location: ../?message=EmailSent");
+			}
+			else
+				header("Location: ../?error=NoEmail");
 		}
 	}
 
@@ -80,14 +95,14 @@
 		
 		<div id="user-control" class="user-control">
 			<label class="log-title"> New User???</label>
-			<form method="post" action="profile/create.php">
+			<form method="post" action="profile/profile.php?method=register">
 				<div class="form-group">
 					<label class="text-primary" for="email">Email</label>
-					<input type="email" class="form-control" placeholder="example@host.com">
+					<input type="email" class="form-control" placeholder="example@host.com" name="email">
 				</div>
 				<div class="form-group">
 					<label class="text-primary" for="text">Username</label>
-					<input type="text" class="form-control" placeholder="Username">
+					<input type="text" class="form-control" placeholder="Username" name="uname">
 				</div>
 				<div class="form-group">
 					<label class="text-warning"  for="pwd">Password</label>
@@ -106,17 +121,17 @@
 			<form action="profile/profile.php?method=resend" method="POST">
 				<div class="form-group">
 					<label class="text-primary" for="email">Email</label>
-					<input type="email" class="form-control" placeholder="example@host.com">
+					<input name="email" type="email" class="form-control" placeholder="example@host.com">
 				</div>
 				<button type="submit" class="btn btn-primary">Resend Email</button>
 			</form>
 		</div>
 		<div id="user-resubmit" class="user-resubmit">
 			<label class="log-title">Forgot Password?</label>
-			<form action="profile/profile.php?method=resend" method="POST">
+			<form action="profile/profile.php?method=forgotpass" method="POST">
 				<div class="form-group">
 					<label class="text-primary" for="email">Email</label>
-					<input type="email" class="form-control" placeholder="example@host.com">
+					<input name="email" type="email" class="form-control" placeholder="example@host.com">
 				</div>
 				<button type="submit" class="btn btn-primary">Send Email</button>
 			</form>

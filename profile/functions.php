@@ -13,7 +13,7 @@
         $stmt->execute();
         $stmt->SetFetchMode(PDO::FETCH_ASSOC);
 		$user = $stmt->fetch();
-		if (isset($user))
+		if ($user)
 		{
 			if ($user['isVerified'] == 0)
 				return "Need Verify";
@@ -61,6 +61,8 @@
         $message = "<html><body>";
 		$message .= "Please click on the following link to allow us to activate you account\n";
 		$loc = str_replace("?method=resend", "", $_SERVER['REQUEST_URI']);
+		$loc = str_replace("?method=login", "", $loc);
+		$loc = str_replace("?method=register", "", $loc);
         $message .= "<a href='http://".$_SERVER['HTTP_HOST'] . $loc ."/../verify.php?verify=".$key."'><p>Click me!!</p></a>";
         $message .= "</body></html>";
         $headers = "From:" . $from . "\r\n";
@@ -101,8 +103,15 @@
                 $stmt->bindParam(":email", $email);
                 $stmt->bindParam(":pass", $pass);
                 $stmt->bindParam(":vkey", $key);
-                $stmt->execute();
-                send_verify($email, $key);
+				$stmt->execute();
+				if ($stmt)
+				{
+					send_verify($email, $key);
+					echo "SuccessRegistration";
+				}
+				else
+					echo "InvalidRegistration";
+				
             }
             catch (PDOException $e)
             {
@@ -118,7 +127,7 @@
 		global $conn;
 		try
 		{
-			$query = "INSERT INTO `camagru`.`likes` (`ref_id`, `likes`) VALUES (:id, :myid);";
+			$query = "INSERT INTO `camagru`.`likes` (`ref_id`, `likes`) VALUES (:myid, :id);";
 			$stmt = $conn->prepare($query);
 			$myid = $_SESSION['UID'];
 			$stmt->bindParam(":id", $id);
@@ -136,7 +145,7 @@
 		global $conn;
 		try
 		{
-			$query = "DELETE FROM `camagru`.`likes` WHERE `ref_id` = :id AND `likes` = :myid;";
+			$query = "DELETE FROM `camagru`.`likes` WHERE `ref_id` = :myid AND `likes` = :id;";
 			$stmt = $conn->prepare($query);
 			$myid = $_SESSION['UID'];
 			$stmt->bindParam(":id", $id);
@@ -149,12 +158,31 @@
 		}
 	}
 
+	function get_likes($id)
+	{
+		global $conn;
+		try
+		{
+			$query = "SELECT * FROM `camagru`.`likes` WHERE `likes` = :id;";
+			$stmt = $conn->prepare($query);
+			$stmt->bindParam(":id", $id);
+			$stmt->execute();
+			$stmt->SetFetchMode(PDO::FETCH_ASSOC);
+			$like = $stmt->fetchAll();
+			return (count($like));
+		}
+		catch (PDOException $e)
+		{
+			echo "Failed to recieve likes -> " . $e;
+		}
+	}
+
 	function hasLiked($id)
 	{
 		global $conn;
 		try
 		{
-			$query = "SELECT * FROM `camagru`.`likes` WHERE `ref_id` = :id; AND `likes` = :myid";
+			$query = "SELECT * FROM `camagru`.`likes` WHERE `ref_id` = :myid AND `likes` = :id LIMIT 1";
 			$stmt = $conn->prepare($query);
 			$myid = $_SESSION['UID'];
 			$stmt->bindParam(":id", $id);

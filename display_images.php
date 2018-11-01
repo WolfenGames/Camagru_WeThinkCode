@@ -21,6 +21,7 @@
             echo ($i == 1) ? "<div class='col-sm-4 img-block-1'>" : "<div class='col-sm-4 img-block-2'>";
 			echo "
 				<p style=" . ((isset($_SESSION['Username']) && $v['image_name'] == $_SESSION['Username']) ? "'color: #F5EAB7;" : "'color: #EF944C;") . "'>" . $v['image_name'] . "</p>
+				<p class='likes'>".get_likes($v['ID'])."</p>
 				<img class='display-img' src='data:image/png; base64, " . $v['image_data'] . "'> <br />";
 			if (isset($_SESSION['Username']))
 			{

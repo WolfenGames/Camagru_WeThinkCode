@@ -114,8 +114,8 @@ function profileStuff()
 			document.getElementById("Other").style.display = "block";
 			document.getElementById("user-login").style.display = "none";
 			document.getElementById("user-control").style.display = "none";
-			document.getElementById("user-resubmit-email").style.display = "block";
-			document.getElementById("user-resubmit").style.display = "none";
+			document.getElementById("user-resubmit-email").style.display = "none";
+			document.getElementById("user-resubmit").style.display = "block";
 			break;
 		case 4:
 			document.getElementById("NewMember").style.display = "block";
@@ -124,8 +124,8 @@ function profileStuff()
 			document.getElementById("Other").style.display = "none";
 			document.getElementById("user-login").style.display = "none";
 			document.getElementById("user-control").style.display = "none";
-			document.getElementById("user-resubmit-email").style.display = "none";
-			document.getElementById("user-resubmit").style.display = "block";
+			document.getElementById("user-resubmit-email").style.display = "block";
+			document.getElementById("user-resubmit").style.display = "none";
 			break;
 		case 5:
 			document.getElementById("NewMember").style.display = "block";
