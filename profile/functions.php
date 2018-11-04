@@ -207,11 +207,51 @@
 		return (preg_match("/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}/g", $pass));
 	}
 
+	function checkPass($pass)
+	{
+		global $conn;
+		$query = "SELECT * FROM `camagru`.`users` WHERE `password` = :pass LIMIT 1;";
+		try
+		{
+			$stmt = $conn->prepare($query);
+			$hpass = hash("sha512", $pass);
+			$stmt->bindParam(":pass", $hpass);
+			$stmt->execute();
+			$stmt->SetFetchMode(PDO::FETCH_ASSOC);
+			$res = $stmt->fetch();
+			return ($res);
+		}
+		catch (PDOException $e)
+		{
+			echo "Pass check failed -> " . $e->getMessage();
+		}
+	}
+
 	function changePass($oldP, $newP, $newCP)
 	{
-		if ($newP == $newCP)
+		global $conn;
+		if ($newP == $newCP && checkPass($oldP))
 		{
 			$query = "UPDATE `camagru`.`users` SET `password` = :pass WHERE `username` = :Uname;";
+			try
+			{
+				$stmt = $conn->prepare($query);
+				$nPass = hash("sha512", $newP);
+				$stmt->bindParam(":pass", $nPass);
+				$user = $_SESSION['Username'];
+				$stmt->bindParam(":Uname", $user);
+				$stmt->execute();
+				$stmt->SetFetchMode(PDO::FETCH_ASSOC);
+				$res = $stmt->fetch();
+				if ($res)
+					echo "Success";
+				else
+					echo "Fail";
+			}
+			catch (PDOException $e)
+			{
+				echo "Change pass failed -> " . $e->getMessage();
+			}
 		}else
 		{
 			echo "Passwords don't match";
