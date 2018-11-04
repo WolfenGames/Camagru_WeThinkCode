@@ -12,16 +12,27 @@
 	<?php
 		require_once("profile/functions.php");
 		session_start();
-		header_remove();
+		if ($_SESSION['Username'])
+		{
 	?>
+	<script>
+		state = 6;
+	</script>
+	<?php
+		} ?>
 	<nav class="navbar navbar-expand-sm">
 		<div class="container-fluid">
 			<div class="navbar-header">
 			<h3>Camagru of all Camagru's<h3>
 			</div>
-			<button onclick="changeTab('Feed')" class="btn btn-success navbar-btn">Feed</button>
-			<button onclick="changeTab('Camera')" class="btn btn-success navbar-btn">Camera</button>
-			<button onclick="changeTab('Profile')" class="btn btn-success navbar-btn">Profile</button>
+			<div class="navbar">
+				<button onclick="changeTab('Feed')" class="btn btn-success navbar-btn">Feed</button>
+				<div class="header-nav-div"></div>
+				<button onclick="changeTab('Camera')" class="btn btn-success navbar-btn">Camera</button>
+				<div class="header-nav-div"></div>
+				<button onclick="changeTab('Profile')" class="btn btn-success navbar-btn">Profile</button>
+				<div class="header-nav-div"></div>
+			</div>
 			<?php
 				if (isset($_SESSION['Username']))
 				{

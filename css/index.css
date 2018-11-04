@@ -125,6 +125,11 @@ input[type=button]
 	padding-right: 4px;
 }
 
+.header-nav-div
+{
+	width: 5px;
+}
+
 @media screen and (orientation: landscape)
 {
 	*
