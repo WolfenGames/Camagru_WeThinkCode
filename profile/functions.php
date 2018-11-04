@@ -257,3 +257,23 @@
 			echo "Passwords don't match";
 		}
 	}
+
+	function uploadImage($file)
+	{
+		try
+		{
+			$newf = base64_encode($file);
+			$query = "INSERT INTO `camagru`.`images` (`image_data`, `image_name`. `user_id`) VALUES (:imgdat, :imgName, :id);";
+			$imgname = $_SESSION['Username'];
+			$imgid = $_SESSION['UID'];
+			$stmt = $conn->prepare($query);
+			$stmt->bindParam(":imgdat", $newf);
+			$stmt->bindParam(":imgName", $imgname);
+			$stmt->bindParam(":id", $imgid);
+			$stmt->execute();
+		}
+		catch (PDOException $e)
+		{
+			echo "Upload image failed -> " . $e->getMessage();
+		}
+	}
