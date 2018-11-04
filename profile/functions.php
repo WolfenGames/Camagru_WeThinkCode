@@ -298,3 +298,19 @@
 			echo "Comment fail -> " . $e->getMessage();
 		}
 	}
+
+	function deleteComment($id)
+	{
+		global $conn;
+		try
+		{
+			$query = "DELETE FROM `camagru`.`comments` WHERE `ID` = :id;";
+			$stmt = $conn->prepare($query);
+			$stmt->bindParam(":id", $id);
+			$stmt->execute();
+		}
+		catch (PDOException $e)
+		{
+			echo "Can`t delete comment -> " . $e->getMessage();
+		}
+	}
