@@ -16,7 +16,7 @@
     }
     catch(PDOException $e)
     {
-        echo "Create table failed: " . $e->getMessage() . "<br />\n";
+        echo "Create table failed: ::USERS:: " . $e->getMessage() . "<br />\n";
     }
     //Create Image Table
     try {
@@ -25,7 +25,7 @@
     }
     catch(PDOException $e)
     {
-        echo "Create table failed: " . $e->getMessage() . "<br />\n";
+        echo "Create table failed: ::IMAGE:: " . $e->getMessage() . "<br />\n";
     }
     //Create Likes Table
     try {
@@ -34,7 +34,7 @@
     }
     catch(PDOException $e)
     {
-        echo "Create table failed: " . $e->getMessage() . "<br />\n";
+        echo "Create table failed: ::LIKES:: " . $e->getMessage() . "<br />\n";
     }
     //Create comment Table
     try {
@@ -43,6 +43,6 @@
     }
     catch(PDOException $e)
     {
-        echo "Create table failed: " . $e->getMessage() . "<br />\n";
+        echo "Create table failed: ::COMMENT:: " . $e->getMessage() . "<br />\n";
     }
 ?>
