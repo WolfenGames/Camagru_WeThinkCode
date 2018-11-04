@@ -201,3 +201,19 @@
 			echo "Failed to recieve likes -> " . $e;
 		}
 	}
+
+	function passValid($pass)
+	{
+		return (preg_match("/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}/g", $pass));
+	}
+
+	function changePass($oldP, $newP, $newCP)
+	{
+		if ($newP == $newCP)
+		{
+			$query = "UPDATE `camagru`.`users` SET `password` = :pass WHERE `username` = :Uname;";
+		}else
+		{
+			echo "Passwords don't match";
+		}
+	}
