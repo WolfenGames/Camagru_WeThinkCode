@@ -277,3 +277,24 @@
 			echo "Upload image failed -> " . $e->getMessage();
 		}
 	}
+
+	function makeComment($comment, $id)
+	{
+		global $conn;
+		try
+		{
+			$query = "INSERT INTO `camagru`.`comments` (`img_id`, `commenter`, `comment`, `Date`) VALUES (:imgid, :user, :comment, NOW());";
+			$imgid = $id;
+			$user = $_SESSION['Username'];
+			$icomment = $comment;
+			$stmt = $conn->prepare($query);
+			$stmt->bindParam(":imgid", $imgid);
+			$stmt->bindParam(":user", $user);
+			$stmt->bindParam(":comment", $icomment);
+			$stmt->execute();
+		}
+		catch(PDOException $e)
+		{
+			echo "Comment fail -> " . $e->getMessage();
+		}
+	}
