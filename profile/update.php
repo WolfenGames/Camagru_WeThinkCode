@@ -1,5 +1,7 @@
 <?php
 	require_once("functions.php");
+	session_start();
+
 	if ($_POST)
 	{
 		$oPass = $_POST['oldPass'];
@@ -10,23 +12,32 @@
 		$preff = $_POST['emailPref'];
 		if (isset($oPass) && isset($nPass) && isset($cPass))
 		{
-			if (checkPass($nPass) && checkPass($cPass) && $oPass == $nPass)
+			if (checkPass($nPass) && checkPass($cPass))
 			{
-				if (correctCurr($cPass))
+				if ($cPass == $nPass)
 				{
-					$message = changePass($oPass, $nPass, $cPass) . " ";
-					$message .= updateUser($uname, $email, $preff);
-					header("Location: ../?message=" . $message);
+					if (correctCurr($cPass))
+					{
+						$message = changePass($oPass, $nPass, $cPass) . "+";
+						$message .= updateUser($uname, $email, $preff);
+						header("Location: ../?message=" . $message);
+					}
+					else
+					{
+						header("Location: ../?message=Incorrect Current Password");
+					}
 				}
 				else
 				{
-					header("Location: ../?message=Incorrect Current Password");
+					header("Location: ../?message=Passwords dont match");
 				}
 			}else
 			{
-				header("Location: ../?message=Failed to update password, Mismatch");
+				header("Location: ../?message=Failed to update password, incorrect length, Needs 1 Uppercase, 1 number, 1 special, mininum 8 characters");
 			}
 		}
+		else
+			header("Location: ../");
 	}
 	else
 		header("Location: ../");

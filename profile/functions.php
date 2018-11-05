@@ -238,9 +238,9 @@
 		global $conn;
 		if ($newP == $newCP && checkPass($oldP))
 		{
-			$query = "UPDATE `camagru`.`users` SET `password` = :pass WHERE `username` = :Uname;";
 			try
 			{
+				$query = "UPDATE `camagru`.`users` SET `password` = :pass WHERE `username` = :Uname;";
 				$stmt = $conn->prepare($query);
 				$nPass = hash("sha512", $newP);
 				$stmt->bindParam(":pass", $nPass);
@@ -262,6 +262,11 @@
 		{
 			return "Passwords don't match";
 		}
+	}
+
+	function DoIexist()
+	{
+		return (isset($_SESSION['Username']));
 	}
 
 	function updateUser($uname, $email, $preff)
@@ -348,5 +353,29 @@
 		catch (PDOException $e)
 		{
 			echo "Can`t delete comment -> " . $e->getMessage();
+		}
+	}
+
+	function correctCurr($cpass)
+	{
+		global $conn;
+		try
+		{
+			$query = "SELECT * FROM `camagru`.`users` WHERE `username` = :uname LIMIT 1;";
+			$stmt = $conn->prepare($query);
+			$uname = $_SESSION['Username'];
+			$stmt->bindParam(":uname", $uname);
+			$stmt->execute();
+			$stmt->SetFetchMode(PDO::FETCH_ASSOC);
+			$res = $stmt->fetch();
+			$hasp = hash("sha512", $cpass);
+			if ($res['password'] == $hasp)
+				return 1;
+			else
+				return 0;
+		}
+		catch (PDOException $e)
+		{
+			return false;
 		}
 	}
