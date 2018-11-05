@@ -13,7 +13,7 @@
             $stmt->SetFetchMode(PDO::FETCH_ASSOC);
             foreach($res = $stmt->fetch() as $key=>$val)
             {
-                echo "<xmp class='comment' id='".$val['ID'].">" . $val['comment'] . ".</xmp>";
+                echo "<pre class='comment' id='".$val['ID'].">" . $val['comment'] . "</pre>";
             }
         }
         catch (PDOException $e)
