@@ -91,35 +91,41 @@
 	function register($login, $email, $pass, $veripass)
 	{
 		global $conn;
-		if ($pass == $veripass)
+		if (passValid($pass) && passValid($veripass))
 		{
-			try
+			if ($pass == $veripass)
 			{
-				$pass = hash("sha512", $pass);
-				$query = "INSERT INTO `camagru`.`users` (`username`, `email`, `password`, `verifyKey`) VALUES (:uname, :email, :pass, :vkey);";
-				$key = hash("sha512", $email . time());
-				$stmt = $conn->prepare($query);
-				$stmt->bindParam(":uname", $login);
-				$stmt->bindParam(":email", $email);
-				$stmt->bindParam(":pass", $pass);
-				$stmt->bindParam(":vkey", $key);
-				$stmt->execute();
-				if ($stmt)
+				try
 				{
-					send_verify($email, $key);
-					echo "SuccessRegistration";
+					$pass = hash("sha512", $pass);
+					$query = "INSERT INTO `camagru`.`users` (`username`, `email`, `password`, `verifyKey`) VALUES (:uname, :email, :pass, :vkey);";
+					$key = hash("sha512", $email . time());
+					$stmt = $conn->prepare($query);
+					$stmt->bindParam(":uname", $login);
+					$stmt->bindParam(":email", $email);
+					$stmt->bindParam(":pass", $pass);
+					$stmt->bindParam(":vkey", $key);
+					$stmt->execute();
+					if ($stmt)
+					{
+						send_verify($email, $key);
+						return "SuccessRegistration";
+					}
+					else
+						return "InvalidRegistration";
+					
 				}
-				else
-					echo "InvalidRegistration";
-				
+				catch (PDOException $e)
+				{
+					echo "Failed to register -> " . $e->getMessage();
+				}
 			}
-			catch (PDOException $e)
-			{
-				echo "Failed to register -> " . $e->getMessage();
-			}
+			else
+				return "Password is invalid!\n";
+		}else
+		{
+			return "Password needs 8 minimum characters, 1 upper, 1 special and a number";
 		}
-		else
-			echo "Password is invalid!\n";
 	}
 
 	function like($id)
@@ -204,7 +210,7 @@
 
 	function passValid($pass)
 	{
-		return (preg_match("/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}/g", $pass));
+		return (preg_match("/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/", $pass));
 	}
 
 	function checkPass($pass)
@@ -244,22 +250,52 @@
 				$stmt->SetFetchMode(PDO::FETCH_ASSOC);
 				$res = $stmt->fetch();
 				if ($res)
-					echo "Success";
+					return "Success";
 				else
-					echo "Fail";
+					return "Fail";
 			}
 			catch (PDOException $e)
 			{
-				echo "Change pass failed -> " . $e->getMessage();
+				return "Change pass failed -> " . $e->getMessage();
 			}
 		}else
 		{
-			echo "Passwords don't match";
+			return "Passwords don't match";
+		}
+	}
+
+	function updateUser($uname, $email, $preff)
+	{
+		global $conn;
+		try
+		{
+			$query = "UPDATE `camagru`.`users` SET `username` = :uname, `email` = :email, `emailPref` = :epref WHERE `username` = :cuname AND `email` = :cemail;";
+			$stmt = $conn->prepare($query);
+			$stmt->bindParam(":uname", $uname);
+			$stmt->bindParam(":email", $email);
+			$stmt->bindParam(":epref", $preff);
+			$cuser = $_SESSION['Username'];
+			$cemail = $_SESSION['Email'];
+			$stmt->bindParam(":cuname", $cuser);
+			$stmt->bindParam(":cemail", $cemail);
+			$stmt->execute();
+			$stmt->SetFetchMode(PDO::FETCH_ASSOC);
+			$res = $stmt->fetch();
+			if ($res)
+				return "Success";
+			else
+				return "Fail";
+
+		}
+		catch (PDOException $e)
+		{
+			return "Can't Update users -> " . $e->getMessage();
 		}
 	}
 
 	function uploadImage($file)
 	{
+		global $conn;
 		try
 		{
 			$newf = base64_encode($file);

@@ -8,7 +8,7 @@
 		{
 			try
 			{
-				header("Location: ../?" . login($_POST['email'], $_POST['password']));
+				header("Location: ../?message=" . login($_POST['email'], $_POST['password']));
 			}
 			catch(PDOException $e)
 			{
@@ -19,7 +19,7 @@
 		{
 			try
 			{
-				header("Location: ../?error=" . register($_POST['uname'], $_POST['email'], $_POST['newPass'], $_POST['cNewPass']));
+				header("Location: ../?message=" . register($_POST['uname'], $_POST['email'], $_POST['newPass'], $_POST['cNewPass']));
 			}
 			catch (PDOException $e)
 			{
@@ -34,7 +34,7 @@
 				header("Location: ../?message=EmailSent");
 			}
 			else
-				header("Location: ../?error=NoEmail");
+				header("Location: ../?message=NoEmail");
 		}
 	}
 
@@ -46,11 +46,11 @@
 			<form method="post" action="profile/update.php">
 				<div class="form-group">
 					<label class="text-primary" for="email">Email</label>
-					<input type="email" class="form-control" value="<?php echo $_SESSION['Email'];?>">
+					<input type="email" class="form-control" name="email" value="<?php echo $_SESSION['Email'];?>">
 				</div>
 				<div class="form-group">
 					<label class="text-primary" for="text">Username</label>
-					<input type="text" class="form-control" value="<?php echo $_SESSION['Username'];?>">
+					<input type="text" class="form-control" name="username" value="<?php echo $_SESSION['Username'];?>">
 				</div>
 				<div class="form-group">
 					<label class="text-warning" for="pwd">Old Password</label>
@@ -63,6 +63,9 @@
 				<div class="form-group">
 					<label class="text-warning"  for="pwd">Confirm new Password</label>
 					<input class="form-control" type="password" name="cNewPass">
+				</div>
+				<div class="checkbox">
+					<label><input value="" type="checkbox" name="emailPref"> Email Preference - Would you like to recieve emails from events</label>
 				</div>
 				<button type="submit" class="btn btn-primary">Update</button>
 			</form>

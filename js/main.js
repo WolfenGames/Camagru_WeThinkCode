@@ -245,6 +245,24 @@ function dislike(id)
     XHR.send("ID=" + id);
 }
 
+function validity(str, dom)
+{
+	if (isValid(str.value))
+	{
+		document.querySelector('#' + dom).style.background = "green";
+	}
+	else
+	{
+		document.querySelector('#' + dom).style.background = "red";
+	}
+}
+
+function isValid(str)
+{
+	var pattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/g;
+	return (pattern.test(str));
+}
+
 function comment(id)
 {
     
