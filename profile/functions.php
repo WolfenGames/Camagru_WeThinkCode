@@ -247,12 +247,14 @@
 				$user = $_SESSION['Username'];
 				$stmt->bindParam(":Uname", $user);
 				$stmt->execute();
-				$stmt->SetFetchMode(PDO::FETCH_ASSOC);
-				$res = $stmt->fetch();
-				if ($res)
-					return "Success";
-				else
-					return "Fail";
+				$res = $stmt->rowCount();
+				$res = $stmt->rowCount();
+			if ($res == 1)
+			{
+				return "Password Updated";
+			}
+			else
+				return "Nothing Updated";
 			}
 			catch (PDOException $e)
 			{
@@ -274,6 +276,14 @@
 		global $conn;
 		try
 		{
+			if ($preff)
+			{
+				$preff = 1;
+			}
+			else
+			{
+				$preff = 0;
+			}
 			$query = "UPDATE `camagru`.`users` SET `username` = :uname, `email` = :email, `emailPref` = :epref WHERE `username` = :cuname AND `email` = :cemail;";
 			$stmt = $conn->prepare($query);
 			$stmt->bindParam(":uname", $uname);
@@ -284,13 +294,15 @@
 			$stmt->bindParam(":cuname", $cuser);
 			$stmt->bindParam(":cemail", $cemail);
 			$stmt->execute();
-			$stmt->SetFetchMode(PDO::FETCH_ASSOC);
-			$res = $stmt->fetch();
-			if ($res)
-				return "Success";
+			$res = $stmt->rowCount();
+			if ($res == 1)
+			{
+				$_SESSION['Username'] = $uname;
+				$_SESSION['Email'] = $email;
+				return "User Updated";
+			}
 			else
-				return "Fail";
-
+				return "Nothing Updated";
 		}
 		catch (PDOException $e)
 		{
