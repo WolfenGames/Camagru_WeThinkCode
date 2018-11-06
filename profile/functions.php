@@ -276,19 +276,12 @@
 		global $conn;
 		try
 		{
-			if ($preff)
-			{
-				$preff = 1;
-			}
-			else
-			{
-				$preff = 0;
-			}
 			$query = "UPDATE `camagru`.`users` SET `username` = :uname, `email` = :email, `emailPref` = :epref WHERE `username` = :cuname AND `email` = :cemail;";
 			$stmt = $conn->prepare($query);
 			$stmt->bindParam(":uname", $uname);
 			$stmt->bindParam(":email", $email);
 			$stmt->bindParam(":epref", $preff);
+			$i = ($preff == true) ? 1 : 0;
 			$cuser = $_SESSION['Username'];
 			$cemail = $_SESSION['Email'];
 			$stmt->bindParam(":cuname", $cuser);

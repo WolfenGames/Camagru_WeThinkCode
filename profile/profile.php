@@ -65,7 +65,7 @@
 					<input class="form-control" type="password" name="cNewPass">
 				</div>
 				<div class="checkbox">
-					<label><input value="" type="checkbox" name="emailPref"> Email Preference - Would you like to recieve emails from events</label>
+					<label><input value="true" type="checkbox" name="emailPref"> Email Preference - Would you like to recieve emails from events</label>
 				</div>
 				<button type="submit" class="btn btn-primary">Update</button>
 			</form>

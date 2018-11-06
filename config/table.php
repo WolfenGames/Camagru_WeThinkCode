@@ -28,6 +28,6 @@
         `password` Varchar(1024) NOT NULL,
         `email` Varchar(1024) NOT NULL UNIQUE,
         `isVerified` INT(1) DEFAULT 0,
-        `emailpref` INT(1) DEFAULT 0,
+		`emailfpref` BOOLEAN NULL DEFAULT FALSE,
         `verifyKey` Varchar(1024) NOT NULL DEFAULT 'HelloWorld' UNIQUE
     );";

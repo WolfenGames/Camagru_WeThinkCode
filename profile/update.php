@@ -9,7 +9,7 @@
 		$cPass = $_POST['cNewPass'];
 		$uname = $_POST['username'];
 		$email = $_POST['email'];
-		$preff = $_POST['emailPref'];
+		$preff = isset($_POST['emailPref']);
 		if (isset($oPass) && isset($nPass) && isset($cPass))
 		{
 			if (checkPass($nPass) && checkPass($cPass))
@@ -18,9 +18,7 @@
 				{
 					if (correctCurr($cPass))
 					{
-						$message = changePass($oPass, $nPass, $cPass) . "+";
-						$message .= updateUser($uname, $email, $preff);
-						header("Location: ../?message=" . $message);
+						$message = "message-pass=" . changePass($oPass, $nPass, $cPass) . "&message-user=";
 					}
 					else
 					{
@@ -35,6 +33,13 @@
 			{
 				header("Location: ../?message=Failed to update password, incorrect length, Needs 1 Uppercase, 1 number, 1 special, mininum 8 characters");
 			}
+		}
+		if (isset($uname) && isset($email) && isset($preff))
+		{
+			if (!isset($message))
+				$message = "message-user=";
+			$message .= updateUser($uname, $email, $preff);
+			header("Location: ../?" . $message);
 		}
 		else
 			header("Location: ../");
