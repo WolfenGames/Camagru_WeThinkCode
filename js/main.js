@@ -70,8 +70,8 @@ function changeTab(tabName) {
     }
     document.getElementById(tabName).style.display = "block";
     if (document.getElementById("Feed").style.display === "block")
-        retrieveImage();
-    if (document.getElementById("Camera").style.display === "block")
+		retrieveImage();
+	if (document.getElementById("Camera").style.display === "block")
 		CameraStuff();
 	if (document.getElementById("Profile").style.display === "block")
 		setState(1);
@@ -85,58 +85,61 @@ function setState(num)
 
 function profileStuff()
 {
-	switch(state)
+	if (document.getElementById("user-control") != null)
 	{
-		case 1:
-			document.getElementById("NewMember").style.display = "block";
-			document.getElementById("AlreadyMember").style.display = "none";
-			document.getElementById("ForgotPassword").style.display = "block";
-			document.getElementById("Other").style.display = "block";
-			document.getElementById("user-control").style.display = "none";
-			document.getElementById("user-login").style.display = "block";
-			document.getElementById("user-resubmit-email").style.display = "none";
-			document.getElementById("user-resubmit").style.display = "none";
-			break;
-		case 2:
-			document.getElementById("NewMember").style.display = "none";
-			document.getElementById("AlreadyMember").style.display = "block";
-			document.getElementById("ForgotPassword").style.display = "block";
-			document.getElementById("Other").style.display = "block";
-			document.getElementById("user-control").style.display = "block";
-			document.getElementById("user-login").style.display = "none";
-			document.getElementById("user-resubmit-email").style.display = "none";
-			document.getElementById("user-resubmit").style.display = "none";
-			break;
-		case 3:
-			document.getElementById("NewMember").style.display = "block";
-			document.getElementById("AlreadyMember").style.display = "block";
-			document.getElementById("ForgotPassword").style.display = "none";
-			document.getElementById("Other").style.display = "block";
-			document.getElementById("user-login").style.display = "none";
-			document.getElementById("user-control").style.display = "none";
-			document.getElementById("user-resubmit-email").style.display = "none";
-			document.getElementById("user-resubmit").style.display = "block";
-			break;
-		case 4:
-			document.getElementById("NewMember").style.display = "block";
-			document.getElementById("AlreadyMember").style.display = "block";
-			document.getElementById("ForgotPassword").style.display = "block";
-			document.getElementById("Other").style.display = "none";
-			document.getElementById("user-login").style.display = "none";
-			document.getElementById("user-control").style.display = "none";
-			document.getElementById("user-resubmit-email").style.display = "block";
-			document.getElementById("user-resubmit").style.display = "none";
-			break;
-		case 5:
-			document.getElementById("NewMember").style.display = "block";
-			document.getElementById("AlreadyMember").style.display = "block";
-			document.getElementById("ForgotPassword").style.display = "block";
-			document.getElementById("Other").style.display = "block";
-			document.getElementById("user-login").style.display = "block";
-			document.getElementById("user-control").style.display = "block";
-			document.getElementById("user-resubmit-email").style.display = "block";
-			document.getElementById("user-resubmit").style.display = "block";
-			break;
+		switch(state)
+		{
+			case 1:
+				document.getElementById("NewMember").style.display = "block";
+				document.getElementById("AlreadyMember").style.display = "none";
+				document.getElementById("ForgotPassword").style.display = "block";
+				document.getElementById("Other").style.display = "block";
+				document.getElementById("user-control").style.display = "none";
+				document.getElementById("user-login").style.display = "block";
+				document.getElementById("user-resubmit-email").style.display = "none";
+				document.getElementById("user-resubmit").style.display = "none";
+				break;
+			case 2:
+				document.getElementById("NewMember").style.display = "none";
+				document.getElementById("AlreadyMember").style.display = "block";
+				document.getElementById("ForgotPassword").style.display = "block";
+				document.getElementById("Other").style.display = "block";
+				document.getElementById("user-control").style.display = "block";
+				document.getElementById("user-login").style.display = "none";
+				document.getElementById("user-resubmit-email").style.display = "none";
+				document.getElementById("user-resubmit").style.display = "none";
+				break;
+			case 3:
+				document.getElementById("NewMember").style.display = "block";
+				document.getElementById("AlreadyMember").style.display = "block";
+				document.getElementById("ForgotPassword").style.display = "none";
+				document.getElementById("Other").style.display = "block";
+				document.getElementById("user-login").style.display = "none";
+				document.getElementById("user-control").style.display = "none";
+				document.getElementById("user-resubmit-email").style.display = "none";
+				document.getElementById("user-resubmit").style.display = "block";
+				break;
+			case 4:
+				document.getElementById("NewMember").style.display = "block";
+				document.getElementById("AlreadyMember").style.display = "block";
+				document.getElementById("ForgotPassword").style.display = "block";
+				document.getElementById("Other").style.display = "none";
+				document.getElementById("user-login").style.display = "none";
+				document.getElementById("user-control").style.display = "none";
+				document.getElementById("user-resubmit-email").style.display = "block";
+				document.getElementById("user-resubmit").style.display = "none";
+				break;
+			case 5:
+				document.getElementById("NewMember").style.display = "block";
+				document.getElementById("AlreadyMember").style.display = "block";
+				document.getElementById("ForgotPassword").style.display = "block";
+				document.getElementById("Other").style.display = "block";
+				document.getElementById("user-login").style.display = "block";
+				document.getElementById("user-control").style.display = "block";
+				document.getElementById("user-resubmit-email").style.display = "block";
+				document.getElementById("user-resubmit").style.display = "block";
+				break;
+		}
 	}
 }
 

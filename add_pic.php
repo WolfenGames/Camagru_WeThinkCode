@@ -18,9 +18,9 @@
 			try {
 				$db = $conn->prepare($query);
 				$noname = $_SESSION['Username'];
-				$db->bindParam(":uname", $noname);//$_SESSION['Username']);
+				$db->bindParam(":uname", $noname);
 				$uid = $_SESSION['ID'];
-				$db->bindParam(":userid", $uid);// $_SESSION['UID']);
+				$db->bindParam(":userid", $uid);
 				$db->execute();
 			}
 			catch(PDOException $e)

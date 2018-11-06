@@ -22,6 +22,7 @@
 				$_SESSION['Username'] = $user['username'];
 				$_SESSION['Email'] = $user['email'];
 				$_SESSION['UID'] = $user['ID'];
+				$_SESSION['UserPref'] = $user['emailpref'];
 				return "Logged in";
 			}
 		}
@@ -276,12 +277,12 @@
 		global $conn;
 		try
 		{
-			$query = "UPDATE `camagru`.`users` SET `username` = :uname, `email` = :email, `emailPref` = :epref WHERE `username` = :cuname AND `email` = :cemail;";
+			$query = "UPDATE `camagru`.`users` SET `username` = :uname, `email` = :email, `emailpref` = :epref WHERE `username` = :cuname AND `email` = :cemail;";
 			$stmt = $conn->prepare($query);
 			$stmt->bindParam(":uname", $uname);
 			$stmt->bindParam(":email", $email);
-			$stmt->bindParam(":epref", $preff);
 			$i = ($preff == true) ? 1 : 0;
+			$stmt->bindParam(":epref", $i);
 			$cuser = $_SESSION['Username'];
 			$cemail = $_SESSION['Email'];
 			$stmt->bindParam(":cuname", $cuser);
@@ -292,6 +293,7 @@
 			{
 				$_SESSION['Username'] = $uname;
 				$_SESSION['Email'] = $email;
+				$_SESSION['UserPref'] = $i;
 				return "User Updated";
 			}
 			else
