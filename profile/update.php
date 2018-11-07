@@ -22,16 +22,16 @@
 					}
 					else
 					{
-						header("Location: ../?message=Incorrect Current Password");
+						$message = "message=Incorrect Current Password&message-user=";
 					}
 				}
 				else
 				{
-					header("Location: ../?message=Passwords dont match");
+					$message = "message-pass=Passwords dont match&message-user=";
 				}
 			}else
 			{
-				header("Location: ../?message=Failed to update password, incorrect length, Needs 1 Uppercase, 1 number, 1 special, mininum 8 characters");
+				$message = "message-pass=Failed to update password, incorrect length, Needs 1 Uppercase, 1 number, 1 special, mininum 8 characters&message-user=";
 			}
 		}
 		if (isset($uname) && isset($email) && isset($preff))
@@ -39,6 +39,8 @@
 			if (!isset($message))
 				$message = "message-user=";
 			$message .= updateUser($uname, $email, $preff);
+			if ($_SESSION['UserPref'] == 1)
+				notify_user($email, 3);
 			header("Location: ../?" . $message);
 		}
 		else

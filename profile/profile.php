@@ -36,6 +36,20 @@
 			else
 				header("Location: ../?message=NoEmail");
 		}
+		if ($method == "forgotpass")
+		{
+			if (isset($_POST['email']))
+			{
+				try
+				{
+					header("Location: ../?message=" . passreset($_POST['email']));
+				}
+				catch (PDOException $e)
+				{
+					echo "Danger robinson " . $e->getMessage();
+				}
+			}
+		}
 	}
 
 	if (isset($_SESSION['Username']))

@@ -72,6 +72,111 @@
 		mail($to,$subject,$message, $headers);
 	}
 
+	function reset_pass($nPass, $cPass, $key)
+	{
+		if ($nPass == $cPass)
+		{
+			if (passValid($nPass))
+			{
+				global $conn;
+				try
+				{
+					$query = "UPDATE `camagru`.`users` SET `password`=:pass WHERE `verifyKey`=:vkey;";
+					$stmt = $conn->prepare($query);
+					$pass = hash("sha512", $nPass);
+					$stmt->bindParam(":pass", $pass);
+					$stmt->bindParam(":vkey", $key);
+					$stmt->execute();
+					$res = $stmt->rowCount();
+					if ($res == 1)
+					{
+						$query1 = "SELECT `email` FROM `camagru`.`users` WHERE `verifyKey`=:vkey;";
+						$stmt2 = $conn->prepare($query1);
+						$stmt2->bindParam(":vkey", $key);
+						$stmt2->execute();
+						$stmt2->SetFetchMode(PDO::FETCH_ASSOC);
+						$res = $stmt2->fetch();
+						notify_user($res['email'], 4);
+						return "Password Reset";
+					}
+					else
+						return "Undefined Error&verify=" . $key;
+				}
+				catch (PDOException $e)
+				{
+					echo $e->getMessage();
+					return ($e->getMessage());	
+				}
+			}
+			else
+				return ("Password not valid&verify=" . $key);
+		}else
+			return ("Passwords dont match&verify=" . $key);
+	}
+
+	function passreset($email)
+	{
+		global $conn;
+		try
+		{
+			$query = "SELECT `verifyKey` FROM `camagru`.`users` WHERE `email`=:email;";
+			$stmt = $conn->prepare($query);
+			$stmt->bindParam(":email", $email);
+			$stmt->execute();
+			$stmt->SetFetchMode(PDO::FETCH_ASSOC);
+			$user = $stmt->fetch();
+			if ($user)
+				send_pass_reset_verify($email, $user['verifyKey']);
+			return ("Request sent");
+		}
+		catch (PDOException $e)
+		{
+			return ($e->getMessage());
+		}
+	}
+
+	function send_pass_reset_verify($email, $key)
+	{
+		$from = "admin@camagru.com";
+		$to = $email;
+		$subject = "Reset Camagru Account";
+		$message = "<html><body>";
+		$message .= "Please click on the following link to reset your password\n";
+		$loc = str_replace("?method=resend", "", $_SERVER['REQUEST_URI']);
+		$loc = str_replace("?method=login", "", $loc);
+		$loc = str_replace("?method=register", "", $loc);
+		$loc = str_replace("?method=forgotpass", "", $loc);
+		$message .= "<a href='http://".$_SERVER['HTTP_HOST'] . $loc ."/../resetpw.php?verify=".$key."'><p>Click me!!</p></a>";
+		$message .= "</body></html>";
+		$headers = "From:" . $from . "\r\n";
+		$headers .= 'Content-type: text/html; charset=utf-8' . "\r\n";
+		$headers .= "X-Mailer: PHP/" . PHP_VERSION;
+		mail($to,$subject,$message, $headers);
+	}
+
+	function notify_user($email, $option)
+	{
+		if ($option == 1)
+			$message_add = "User has liked your photo";
+		if ($option == 2)
+			$message_add = "User has commented on your photo";
+		if ($option == 3)
+			$message_add = "You have updated your profile";
+		if ($option == 4)
+			$message_add = "You have updated your profile";
+		
+		$from = "admin@camagru.com";
+		$to = $email;
+		$subject = "Camagru Account Notifications";
+		$message = "<html><body>";
+		$message .= "<h1>" . $message_add . "</h1>";
+		$message .= "</body></html>";
+		$headers = "From:" . $from . "\r\n";
+		$headers .= 'Content-type: text/html; charset=utf-8' . "\r\n";
+		$headers .= "X-Mailer: PHP/" . PHP_VERSION;
+		mail($to,$subject,$message, $headers);
+	}
+
 	function delete_account($email, $pass)
 	{
 		global $conn;
@@ -249,13 +354,12 @@
 				$stmt->bindParam(":Uname", $user);
 				$stmt->execute();
 				$res = $stmt->rowCount();
-				$res = $stmt->rowCount();
-			if ($res == 1)
-			{
-				return "Password Updated";
-			}
-			else
-				return "Nothing Updated";
+				if ($res == 1)
+				{
+					return "Password Updated";
+				}
+				else
+					return "Nothing Updated";
 			}
 			catch (PDOException $e)
 			{
@@ -302,27 +406,6 @@
 		catch (PDOException $e)
 		{
 			return "Can't Update users -> " . $e->getMessage();
-		}
-	}
-
-	function uploadImage($file)
-	{
-		global $conn;
-		try
-		{
-			$newf = base64_encode($file);
-			$query = "INSERT INTO `camagru`.`images` (`image_data`, `image_name`. `user_id`) VALUES (:imgdat, :imgName, :id);";
-			$imgname = $_SESSION['Username'];
-			$imgid = $_SESSION['UID'];
-			$stmt = $conn->prepare($query);
-			$stmt->bindParam(":imgdat", $newf);
-			$stmt->bindParam(":imgName", $imgname);
-			$stmt->bindParam(":id", $imgid);
-			$stmt->execute();
-		}
-		catch (PDOException $e)
-		{
-			echo "Upload image failed -> " . $e->getMessage();
 		}
 	}
 

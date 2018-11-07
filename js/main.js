@@ -176,25 +176,19 @@ function retrieveImage()
 function sendData() 
 {
     var XHR = new XMLHttpRequest();
-    var img_data = document.querySelector("#canvas").toDataURL();
+	var img_data = document.querySelector("#canvas").toDataURL();
+	var title = document.querySelector("#title").value;
 
     XHR.addEventListener('load', function(event) {
-        if (this.response)
-        {
-			alert(this.response);
-        }
-		else
-		{
-			cancel_click();
-			changeTab("Feed");
-		}
+		cancel_click();
+		changeTab("Feed");
     });
     XHR.addEventListener('error', function(event) {
-    alert('Oops! Something went wrong.');
+		alert('Oops! Something went wrong.');
     });
     XHR.open('POST', 'add_pic.php');
     XHR.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    XHR.send("img=" + img_data);
+    XHR.send("img=" + img_data + "&title=" + title);
 }
 
 function delete_image(id)

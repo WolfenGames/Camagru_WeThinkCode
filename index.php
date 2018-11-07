@@ -64,6 +64,11 @@
 					</div>
 				</div>
 				<canvas name="image" id="canvas">Canvas Still Loading</canvas>
+				<form method="POST" action="add_pic.php" enctype="multipart/form-data">
+					<input type="text" name='title' id='title'>
+					<input type='file' name='upload' id='upload' >
+					<input type='submit' name='uploadImage' id='uploadImage' value="upload image">
+				</form>
 				<div id="options">
 					<?php 
 						if (isset($_SESSION['Username']))

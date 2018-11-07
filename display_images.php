@@ -20,7 +20,7 @@
             }
             echo ($i == 1) ? "<div class='col-sm-4 img-block-1'>" : "<div class='col-sm-4 img-block-2'>";
 			echo "
-				<p style=" . ((isset($_SESSION['Username']) && $v['image_name'] == $_SESSION['Username']) ? "'color: #F5EAB7;" : "'color: #EF944C;") . "'>" . $v['image_name'] . "</p>
+				<p style=" . ((isset($_SESSION['Username']) && $v['user_id'] == $_SESSION['UID']) ? "'color: #F5EAB7;" : "'color: #EF944C;") . "'>" . $v['image_name'] . "</p>
                 <p class='likes'>".get_likes($v['ID'])."</p>
                 <img class='display-img' src='data:image/png; base64, ";
                 if (!empty($v['image_data']))
@@ -37,7 +37,7 @@
 				else
 					echo	"<input class='btn' type='button' id='".$v['ID']."' onclick='dislike(this.id)' value='Dislike'>";
 				echo "	<input class='btn' type='button' id='".$v['ID']."' onclick='comment(this.id)' value='Comment'>";
-				if (isset($_SESSION['Username']) && ($_SESSION['Username'] == $v['image_name']))
+				if (isset($_SESSION['Username']) && ($_SESSION['UID'] == $v['user_id']))
 				{
 					echo "<input type='button' class='btn' onclick='delete_image(".$v['ID'].")' value='Delete'>";
 				}
