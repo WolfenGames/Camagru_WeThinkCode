@@ -57,10 +57,28 @@
 					</div>
 				</div>
 				<canvas name="image" id="canvas">Canvas Still Loading</canvas>
+				<canvas name="image" id="canvaspreview">Canvas Still Loading</canvas>
+				<div id='sticker'>
 				<form method="POST" action="add_pic.php" enctype="multipart/form-data">
+					<fieldset class='user-login'>      
+						<p>Which sticker would you like?</p>
+						<div class="row">
+						<input type="checkbox" id="corner" name="favorite_pet" value="corner.png">Corner thingy<br>
+						<img src="stickers/corner.png" style="width: 50px; height: 50px">   
+						</div>
+						<div class="row">
+						<input type="checkbox" id="flogo" name="favorite_pet" value="flogo.png">Blowy woly<br>     
+						<img src="stickers/flogo.png" style="width: 50px; height: 50px">    
+						</div>
+						<div class="row">
+						<input type="checkbox" id="grand" name="favorite_pet" value="grand.png">Grand Opening<br>  
+						<img src="stickers/grand.png" style="width: 50px; height: 50px">       
+						</div>
+					<input class='btn' id="exampleView" type="button" value="show example" />      
+					</fieldset>
+				</div>
 					<input style="width: 100%;" type="text" name='title' id='title' placeholder="Insert title here">
-					<input style="background-color: #EF944C; width: 100%;" accept="image/*" type='file' name='upload' id='upload' >
-					<input type='submit' name='uploadImage' id='uploadImage' value="upload image">
+					<input style="background-color: #EF944C; width: 100%;" id="image_upload" accept="image/*" type='file' name='upload' id='upload' >
 				</form>
 				<div id="options">
 					<?php 

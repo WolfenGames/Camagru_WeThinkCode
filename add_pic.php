@@ -7,9 +7,43 @@
 		if (isset($_POST['img']))
 		{
 			$img = $_POST['img'];
-			$img = str_replace('data:image/png;base64,', '', $img);
-			$img = str_replace(' ', '+', $img);
-
+			$img = str_replace(" ", "+", $img);
+			$img = str_replace("data:image/png;base64,", "", $img);
+			$img = base64_decode($img);
+			$img = imagecreatefromstring($img);
+			imagepng($img, 'save.png');
+			if ($_POST['flowy'] == 'true')
+			{
+				$stick = imagecreatefrompng("stickers/flogo.png");
+				$img = imagecreatefrompng('save.png');
+				imagealphablending($img, true);
+				imagesavealpha($img, true);
+				$stick = imagescale($stick, 630, 100);
+				imagesavealpha($stick, true);
+				imagecopy($img, $stick, 100, 480, 0, 0, 630, 100);
+				imagepng($img, 'save.png');
+			}if ($_POST['corner'] == 'true')
+			{
+				$stick = imagecreatefrompng("stickers/corner.png");
+				$img = imagecreatefrompng('save.png');
+				imagealphablending($img, true);
+				imagesavealpha($img, true);
+				$stick = imagescale($stick, 640, 640);
+				imagesavealpha($stick, true);
+				imagecopy($img, $stick, 0, 0, 0, 0, 640, 640);
+				imagepng($img, 'save.png');
+			}if ($_POST['grand'] == 'true')
+			{
+				$stick = imagecreatefrompng("stickers/grand.png");
+				$img = imagecreatefrompng('save.png');
+				imagealphablending($img, true);
+				imagesavealpha($img, true);
+				$stick = imagescale($stick, 400, 100);
+				imagesavealpha($stick, true);
+				imagecopy($img, $stick, 320, 0, 0, 0, 630, 100);
+				imagepng($img, 'save.png');
+			}
+			$img = base64_encode(file_get_contents('save.png'));
 			if (empty($img))
 				header("Location: ./?message=No Image Sent");
 			$query = "INSERT INTO `camagru`.`images` (`image_data`, `image_name`, `user_id`) VALUES (
@@ -29,42 +63,7 @@
 			{
 				echo "Cannot upload -> " . $e->getMessage() . "<br />\n";
 			}
-		}
-		else if (isset($_POST["uploadImage"]))
-		{
-			$file_name = $_FILES['upload']['name'];
-            $file_tmp = $_FILES['upload']['tmp_name'];
-            $file_type = $_FILES['upload']['type'];       
-			
-			move_uploaded_file($file_tmp,$file_name);
-			$file = file_get_contents($file_name);
-
-			$img = base64_encode($file);
-			$img = str_replace('data:image/png;base64,', '', $img);
-			$img = str_replace(' ', '+', $img);
-			unlink($file_name);
-			if (empty($img))
-				header("Location: ./?message=No Image Sent");
-
-			$query = "INSERT INTO `camagru`.`images` (`image_data`, `image_name`, `user_id`) VALUES (
-				'$img',
-				:uname,
-				:userid
-			)";
-			try {
-				$db = $conn->prepare($query);
-				$noname = !empty($_POST['title']) ? $_POST['title'] : time();
-				$db->bindParam(":uname", $noname);
-				$uid = $_SESSION['UID'];
-				$db->bindParam(":userid", $uid);
-				$db->execute();
-				header("Location: ./?message=Image uploaded");
-			}
-			catch(PDOException $e)
-			{
-				echo "Cannot upload -> " . $e->getMessage() . "<br />\n";
-			}
-
+			unlink('save.png');
 		}
 		else
 		{

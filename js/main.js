@@ -6,6 +6,8 @@ function CameraStuff()
     if (!hasCam)
     {
         document.querySelector("#canvas").style.display = "none";
+        document.querySelector("#canvaspreview").style.display = "none";
+        document.querySelector("#canvaspreview").style.display = "none";
         document.querySelector("#options").style.display = "none";
     }
     if (document.getElementById("Camera").style.display == "block")
@@ -25,17 +27,48 @@ function CameraStuff()
         }else
             document.getElementById("Camera").innerHTML = "<p> NO CAMERA </p>";
         document.getElementById("snap").addEventListener("click", click);
-        document.querySelector("#delete_snap").addEventListener("click", cancel_click);
+		document.querySelector("#delete_snap").addEventListener("click", cancel_click);
+		document.querySelector("#exampleView").addEventListener("click", examplePreview);
+		document.querySelector("#image_upload").addEventListener("change", (e) => loadtocanvas(e.target.files));
         document.querySelector("#delete_snap").style.display = "none";
     }
 }
 
+function examplePreview()
+{
+	var flowy = document.getElementById("flogo");
+	var grand = document.getElementById("grand");
+	var corner = document.getElementById("corner");
+
+	if (flowy.checked)
+	{
+		var flowyimg = new Image();
+		flowyimg.src = "stickers/flogo.png";
+		document.querySelector("#canvaspreview").getContext('2d').drawImage(flowyimg,100,480,630,100);
+	}
+	if (corner.checked)
+	{
+		var corner = new Image();
+		corner.src = "stickers/corner.png";
+		document.querySelector("#canvaspreview").getContext('2d').drawImage(corner,0,0,640,640);
+	}
+	if (grand.checked)
+	{
+		var grand = new Image();
+		grand.src = "stickers/grand.png";
+		document.querySelector("#canvaspreview").getContext('2d').drawImage(grand,320,0,400,100);
+	}
+}
+
 function cancel_click(){
     document.querySelector("#canvas").style.display = "none";
+    document.querySelector("#canvaspreview").style.display = "none";
     document.querySelector("#options").style.display = "none";
     document.querySelector("#video").style.display = "block";
     document.querySelector("#snap").style.display = "block";
     document.querySelector("#delete_snap").style.display = "none";
+    document.querySelector("#image_upload").style.display = "block";
+    document.querySelector("#uploadImage").style.display = "block";
     hasCam = false;
 }
 
@@ -46,17 +79,25 @@ function click (){
     img.width = video.offsetWidth;
     img.height = video.offsetHeight;
     context = img.getContext('2d');
-    context.drawImage(video, 0, 0, video.offsetWidth, video.offsetHeight);
+	context.drawImage(video, 0, 0, video.offsetWidth, video.offsetHeight);
+	img.style.display = "none";
+	document.querySelector("#canvaspreview").style.display = "block";
+	document.querySelector("#canvaspreview").width = video.offsetWidth;
+	document.querySelector("#canvaspreview").height = video.offsetHeight;
+	document.querySelector("#canvaspreview").getContext('2d').drawImage(video, 0, 0, video.offsetWidth, video.offsetHeight);
     document.querySelector("#video").style.display = "none";
     document.querySelector("#snap").style.display = "none";
     document.querySelector("#options").style.display = "block";
     document.querySelector("#delete_snap").style.display = "block";
+    document.querySelector("#image_upload").style.display = "none";
+    document.querySelector("#uploadImage").style.display = "none";
     hasCam = true;
 }
 
 window.onload = function(){
 	hasCam = false;
 	this.document.querySelector("#snap").style.display = "none";
+	document.querySelector("#canvaspreview").style.display = "none";
     changeTab("Feed");
 	retrieveImage();
 	setInterval("retrieveImage()", 10000);
@@ -173,13 +214,67 @@ function retrieveImage()
 	}
 }
 
+function loadtocanvas(e)
+{
+	var file = null;
+
+	for (let i = 0; i < e.length; i++) {
+		if (e[i].type.match(/^image\//)) {
+			file = e[i];
+		break;
+		}
+	}
+	var newimg = new Image();
+	if (file)
+	{
+		var canvas1 = document.querySelector("#canvas");
+		var canvas2 = document.querySelector("#canvaspreview");
+	
+		if (!hasCam)
+    	{
+			document.querySelector("#canvas").style.display = "none";
+			document.querySelector("#canvaspreview").style.display = "none";
+			document.querySelector("#canvaspreview").style.display = "none";
+			document.querySelector("#options").style.display = "none";
+    	}
+
+		newimg.onload = function()
+		{
+			canvas1.width = this.width;
+			canvas1.height = this.height;
+			canvas2.width = this.width;
+			canvas2.height = this.height;
+
+			console.log(this.width + ' ' + this.height)
+
+			canvas1.getContext('2d').drawImage(newimg, 0, 0);
+			canvas2.getContext('2d').drawImage(newimg, 0, 0);
+		}
+		newimg.src = URL.createObjectURL(file);
+		var img = document.querySelector("#canvas");
+		img.style.display = "none";
+		document.querySelector("#canvaspreview").style.display = "block";
+		document.querySelector("#video").style.display = "none";
+		document.querySelector("#snap").style.display = "none";
+		document.querySelector("#options").style.display = "block";
+		document.querySelector("#delete_snap").style.display = "block";
+		document.querySelector("#image_upload").style.display = "none";
+		document.querySelector("#uploadImage").style.display = "none";
+		hasCam = true;
+	}
+}
+
 function sendData() 
 {
     var XHR = new XMLHttpRequest();
 	var img_data = document.querySelector("#canvas").toDataURL();
 	var title = document.querySelector("#title").value;
+	var flowy = document.getElementById("flogo");
+	var grand = document.getElementById("grand");
+	var corner = document.getElementById("corner");
 
     XHR.addEventListener('load', function(event) {
+		console.log(this.response);
 		cancel_click();
 		changeTab("Feed");
     });
@@ -188,7 +283,7 @@ function sendData()
     });
     XHR.open('POST', 'add_pic.php');
     XHR.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    XHR.send("img=" + img_data + "&title=" + title);
+    XHR.send("img=" + img_data + "&title=" + title + "&flowy=" + flowy.checked + "&grand=" + grand.checked + "&corner=" + corner.checked);
 }
 
 function delete_image(id)
