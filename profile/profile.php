@@ -8,11 +8,11 @@
 		{
 			try
 			{
-				header("Location: ../?message=" . login($_POST['email'], $_POST['password']));
+				header("Location: ../?message=" . login($_POST['uname'], $_POST['password']));
 			}
 			catch(PDOException $e)
 			{
-				echo "Danger robinson " . $e->getMessage();
+				echo "Danger robinson Login " . $e->getMessage();
 			}
 		}
 		if ($method == 'register')
@@ -23,7 +23,7 @@
 			}
 			catch (PDOException $e)
 			{
-				echo "Danger robinson " . $e->getMessage();
+				echo "Danger robinson Register " . $e->getMessage();
 			}
 		}
 		if ($method == "resend")
@@ -46,7 +46,7 @@
 				}
 				catch (PDOException $e)
 				{
-					echo "Danger robinson " . $e->getMessage();
+					echo "Danger robinson Forgot Pass " . $e->getMessage();
 				}
 			}
 		}
@@ -112,8 +112,8 @@
 			<label class="log-title">Old User???</label>
 			<form action="profile/profile.php?method=login" method="POST">
 				<div class="form-group">
-					<label class="text-primary" for="email">Email</label>
-					<input class="form-control" type="email" placeholder="example@host.com" name="email">
+					<label class="text-primary" for="text">Username</label>
+					<input class="form-control" type="text" placeholder="Username" name="uname">
 				</div>
 				<div class="form-group">
 					<label class="text-primary" for="pwd">Password</label>

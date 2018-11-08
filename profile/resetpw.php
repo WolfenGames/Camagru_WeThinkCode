@@ -42,5 +42,8 @@ if (isset($_POST['submit']) && isset($_POST['verify']))
 			<button name="submit" type="submit" class="btn btn-primary">Reset</button>
 		</form>
 	</div>
+	<div class="footer">
+	<p>© jwolf 2018</p>
+	</div>
 </body>
 </html>

@@ -12,16 +12,32 @@
 	<?php
 		require_once("profile/functions.php");
 		session_start();
+		require_once("config/setup.php");
 		?>
 	<nav class="navbar navbar-expand-sm">
 		<div class="container-fluid">
 			<div class="navbar-header">
-			<h3>Camagru of all Camagru's<h3>
+				<?php if ($_SESSION['Username'])
+				{
+					?>
+			<h3>Camagru of all Camagru's welcomes you -> <?php echo $_SESSION['Username']; ?><h3>
+				<?php } else
+				{ ?>
+					<h3>Camagru of all Camagru's</h3>
+				<?php
+				}
+				?>
 			</div>
 			<div class="navbar">
 				<button onclick="changeTab('Feed')" class="btn btn-success navbar-btn">Feed</button>
 				<div class="header-nav-div"></div>
 				<button onclick="changeTab('Camera')" class="btn btn-success navbar-btn">Camera</button>
+				<div class="header-nav-div"></div>
+				<?php if ($_SESSION['Username'])
+				{
+					?>
+				<button onclick="changeTab('myEdits')" class="btn btn-success navbar-btn">My Edits</button>
+				<?php } ?>
 				<div class="header-nav-div"></div>
 				<button onclick="changeTab('Profile')" class="btn btn-success navbar-btn">Profile</button>
 				<div class="header-nav-div"></div>
@@ -46,7 +62,10 @@
 
 			</div>
 		</div>
-
+		<div class="tab" id="myEdits">
+			<div id="myGallery">
+			</div>
+		</div>
 		<div class="tab" id="Camera">
 				<div>
 					<video id="video">Video is loading...</video>
@@ -96,12 +115,14 @@
 				</div>
 				<input type="button" value="Cancel" id="delete_snap">
 		</div>
-
 		<div class="tab" id="Profile">
 				<?php
 					include("profile/profile.php");
 				?>
 		</div>
+	</div>
+	<div class="footer">
+		<p>© jwolf 2018</p>
 	</div>
 </body>
 </html>

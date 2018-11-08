@@ -67,9 +67,9 @@
 					$stmt->SetFetchMode(PDO::FETCH_ASSOC);
 					$user = $stmt->fetch();
 					if ($user)
-						echo $user['username'];
+						echo $user['username'] . ' - ' . $pic['image_name'];
 					else
-						echo "User Deleted";
+						echo "User Deleted" . ' - ' . $pic['image_name'];
 					echo "</p>";
 					echo "<img style='width: 100%; height: auto;' src='data:image/png; base64, " . $pic['image_data'] . "'>";
 				}

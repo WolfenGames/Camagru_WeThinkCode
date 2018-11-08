@@ -68,7 +68,6 @@ function cancel_click(){
     document.querySelector("#snap").style.display = "block";
     document.querySelector("#delete_snap").style.display = "none";
     document.querySelector("#image_upload").style.display = "block";
-    document.querySelector("#uploadImage").style.display = "block";
     hasCam = false;
 }
 
@@ -90,7 +89,6 @@ function click (){
     document.querySelector("#options").style.display = "block";
     document.querySelector("#delete_snap").style.display = "block";
     document.querySelector("#image_upload").style.display = "none";
-    document.querySelector("#uploadImage").style.display = "none";
     hasCam = true;
 }
 
@@ -101,6 +99,8 @@ window.onload = function(){
     changeTab("Feed");
 	retrieveImage();
 	setInterval("retrieveImage()", 10000);
+	retrieveMyImage();
+	setInterval("retrieveMyImage()", 10000);
 }
 
 function changeTab(tabName) {
@@ -112,6 +112,8 @@ function changeTab(tabName) {
     document.getElementById(tabName).style.display = "block";
     if (document.getElementById("Feed").style.display === "block")
 		retrieveImage();
+	if (document.getElementById("myEdits").style.display === "block")
+		retrieveMyImage();
 	if (document.getElementById("Camera").style.display === "block")
 		CameraStuff();
 	if (document.getElementById("Profile").style.display === "block")
@@ -184,15 +186,6 @@ function profileStuff()
 	}
 }
 
-function resize() {
-    var height = window.innerHeight;
-    var ratio = canvas.width / canvas.height;
-    var width = height * ratio;
-  
-    canvas.style.width = width + 'px';
-    canvas.style.height = height + 'px';
-}
-
 function retrieveImage()
 {
 	if (document.querySelector("#Feed").style.display == "block")
@@ -210,6 +203,27 @@ function retrieveImage()
 			alert('Oops! Something went wrong.');
 		});
 		XHR.open('GET', 'display_images.php');
+		XHR.send();
+	}
+}
+
+function retrieveMyImage()
+{
+	if (document.querySelector("#myEdits").style.display == "block")
+	{
+		var XHR = new XMLHttpRequest();
+		XHR.addEventListener('load', function(event) {
+			if (this.response)
+			{
+				document.querySelector("#myGallery").innerHTML = this.response;
+			}
+			else
+				document.querySelector("#myGallery").innerHTML = "<p>Upload some pictures guys, Im hungry for you pics</p>";
+		});
+		XHR.addEventListener('error', function(event) {
+			alert('Oops! Something went wrong.');
+		});
+		XHR.open('GET', 'display_myimages.php');
 		XHR.send();
 	}
 }
@@ -274,7 +288,6 @@ function sendData()
 	var corner = document.getElementById("corner");
 
     XHR.addEventListener('load', function(event) {
-		console.log(this.response);
 		cancel_click();
 		changeTab("Feed");
     });
@@ -292,8 +305,11 @@ function delete_image(id)
     XHR.addEventListener('load', function(event) {
         if (this.response)
             alert(this.response);
-        else
-            retrieveImage();
+		else
+		{
+			retrieveMyImage();
+			retrieveImage();
+		}
     });
     XHR.addEventListener('error', function(event) {
       alert('Oops! Something went wrong.');
@@ -353,9 +369,4 @@ function isValid(str)
 {
 	var pattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/g;
 	return (pattern.test(str));
-}
-
-function comment(id)
-{
-    
 }

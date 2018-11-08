@@ -24,10 +24,11 @@
 	
     $table_user_query = "CREATE TABLE IF NOT EXISTS `camagru`.`users` (
         `ID` INT PRIMARY KEY AUTO_INCREMENT,
-        `username` Varchar(1024) NOT NULL,
+        `username` Varchar(1024) UNIQUE NOT NULL,
         `password` Varchar(1024) NOT NULL,
         `email` Varchar(1024) NOT NULL UNIQUE,
         `isVerified` INT(1) DEFAULT 0,
 		`emailpref` BOOLEAN NULL DEFAULT FALSE,
         `verifyKey` Varchar(1024) NOT NULL DEFAULT 'HelloWorld' UNIQUE
-    );";
+	);";
+?>

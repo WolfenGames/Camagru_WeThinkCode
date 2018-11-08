@@ -12,7 +12,7 @@
 		$preff = isset($_POST['emailPref']);
 		if (isset($oPass) && isset($nPass) && isset($cPass))
 		{
-			if (checkPass($nPass) && checkPass($cPass))
+			if (passValid($nPass) && passValid($cPass))
 			{
 				if ($cPass == $nPass)
 				{

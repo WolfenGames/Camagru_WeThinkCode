@@ -149,6 +149,16 @@ input[type=submit]
 	background-color: #EF944C;
 }
 
+.footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: #F5EAB7;
+    color: white;
+	text-align: center;
+}
+
 @media screen and (orientation: landscape)
 {
 	*

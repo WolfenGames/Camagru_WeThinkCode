@@ -2,14 +2,14 @@
 	set_include_path("../");
 	require_once("config/database.php");
 
-	function login($email, $pass)
+	function login($uname, $pass)
 	{
 		global $conn;
 		$pass = hash("sha512", $pass);
-		$query = "SELECT * FROM `camagru`.`users` WHERE `email` = :email AND `password` = :pass LIMIT 1;";
+		$query = "SELECT * FROM `camagru`.`users` WHERE `username` = :uname AND `password` = :pass LIMIT 1;";
 		$stmt = $conn->prepare($query);
 		$stmt->bindParam(":pass", $pass);
-		$stmt->bindParam(":email", $email);
+		$stmt->bindParam(":uname", $uname);
 		$stmt->execute();
 		$stmt->SetFetchMode(PDO::FETCH_ASSOC);
 		$user = $stmt->fetch();

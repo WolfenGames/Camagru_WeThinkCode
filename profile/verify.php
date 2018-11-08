@@ -10,7 +10,7 @@
             $stmt = $conn->prepare($query);
             $stmt->bindParam(":verkey", $key);
 			$stmt->execute();
-			header("Location: ../");
+			header("Location: ../?message=Whoohoo");
         }
         catch (PDOException $e)
         {
