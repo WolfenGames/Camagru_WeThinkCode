@@ -55,6 +55,14 @@ input[type=button]
     background-color: #EF944C;
 }
 
+input[type=submit]
+{
+    width: 100%;
+    padding: 5px;
+    border: 1px solid #F5EAB7;
+    background-color: #EF944C;
+}
+
 .img-options
 {
     display: flex;
@@ -128,6 +136,17 @@ input[type=button]
 .header-nav-div
 {
 	width: 5px;
+}
+
+.comment-column
+{
+	overflow-y: auto;
+	height: inherit;
+}
+
+.comment
+{
+	background-color: #EF944C;
 }
 
 @media screen and (orientation: landscape)

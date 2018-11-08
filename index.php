@@ -12,14 +12,7 @@
 	<?php
 		require_once("profile/functions.php");
 		session_start();
-		if ($_SESSION['Username'])
-		{
-	?>
-	<script>
-		state = 6;
-	</script>
-	<?php
-		} ?>
+		?>
 	<nav class="navbar navbar-expand-sm">
 		<div class="container-fluid">
 			<div class="navbar-header">
@@ -65,8 +58,8 @@
 				</div>
 				<canvas name="image" id="canvas">Canvas Still Loading</canvas>
 				<form method="POST" action="add_pic.php" enctype="multipart/form-data">
-					<input type="text" name='title' id='title'>
-					<input type='file' name='upload' id='upload' >
+					<input style="width: 100%;" type="text" name='title' id='title' placeholder="Insert title here">
+					<input style="background-color: #EF944C; width: 100%;" accept="image/*" type='file' name='upload' id='upload' >
 					<input type='submit' name='uploadImage' id='uploadImage' value="upload image">
 				</form>
 				<div id="options">

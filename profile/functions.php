@@ -1,6 +1,6 @@
 <?php
 	set_include_path("../");
-	require_once("config/config.php");
+	require_once("config/database.php");
 
 	function login($email, $pass)
 	{
@@ -104,7 +104,6 @@
 				}
 				catch (PDOException $e)
 				{
-					echo $e->getMessage();
 					return ($e->getMessage());	
 				}
 			}
@@ -163,7 +162,7 @@
 		if ($option == 3)
 			$message_add = "You have updated your profile";
 		if ($option == 4)
-			$message_add = "You have updated your profile";
+			$message_add = "You have changed your password";
 		
 		$from = "admin@camagru.com";
 		$to = $email;
@@ -416,13 +415,21 @@
 		{
 			$query = "INSERT INTO `camagru`.`comments` (`img_id`, `commenter`, `comment`, `Date`) VALUES (:imgid, :user, :comment, NOW());";
 			$imgid = $id;
-			$user = $_SESSION['Username'];
+			$user = $_SESSION['UID'];
 			$icomment = $comment;
 			$stmt = $conn->prepare($query);
 			$stmt->bindParam(":imgid", $imgid);
 			$stmt->bindParam(":user", $user);
 			$stmt->bindParam(":comment", $icomment);
 			$stmt->execute();
+			$query2 = "SELECT * FROM `camagru`.`users` WHERE `ID`=:ui;";
+			$stmt2 = $conn->prepare($query2);
+			$stmt2->bindParam(":ui", $user);
+			$stmt2->execute();
+			$stmt2->SetFetchMode(PDO::FETCH_ASSOC);
+			$user = $stmt2->fetch();
+			if ($user && $user['emailpref'] == 1)
+				notify_user($user['email'], 2);
 		}
 		catch(PDOException $e)
 		{

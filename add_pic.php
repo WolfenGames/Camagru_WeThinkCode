@@ -1,5 +1,5 @@
 <?php
-    require_once("config/config.php");
+    require_once("config/database.php");
     session_start();
 
 	if (isset($_SESSION['Username']))
@@ -10,6 +10,8 @@
 			$img = str_replace('data:image/png;base64,', '', $img);
 			$img = str_replace(' ', '+', $img);
 
+			if (empty($img))
+				header("Location: ./?message=No Image Sent");
 			$query = "INSERT INTO `camagru`.`images` (`image_data`, `image_name`, `user_id`) VALUES (
 				'$img',
 				:uname,
@@ -22,7 +24,6 @@
 				$uid = $_SESSION['UID'];
 				$db->bindParam(":userid", $uid);
 				$db->execute();
-				//header("Location: ./?message=Snap Uploaded");
 			}
 			catch(PDOException $e)
 			{
@@ -37,12 +38,14 @@
 			
 			move_uploaded_file($file_tmp,$file_name);
 			$file = file_get_contents($file_name);
-			
+
 			$img = base64_encode($file);
 			$img = str_replace('data:image/png;base64,', '', $img);
 			$img = str_replace(' ', '+', $img);
 			unlink($file_name);
-			
+			if (empty($img))
+				header("Location: ./?message=No Image Sent");
+
 			$query = "INSERT INTO `camagru`.`images` (`image_data`, `image_name`, `user_id`) VALUES (
 				'$img',
 				:uname,

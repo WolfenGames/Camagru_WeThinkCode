@@ -1,48 +1,20 @@
 <?php
-    require_once("config.php");
-    //Create Database
+
+    $conn = NULL;
+    $username = "root";
+    $password = "123asd";
+    $database = "camagru";
+    $host = "127.0.0.1";
+    $port = "";
+
+    require_once("table.php");
     try {
-        $db = $conn->prepare($data_query);
-        $db->execute();
+        $conn = new PDO("mysql:host=$host;", $username, $password);
+        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     }
     catch(PDOException $e)
     {
-        echo "Create Database failed: " . $e->getMessage() . "<br />\n";
-    }
-    //Create User Table
-    try {
-        $db = $conn->prepare($table_user_query);
-        $db->execute();
-    }
-    catch(PDOException $e)
-    {
-        echo "Create table failed: ::USERS:: " . $e->getMessage() . "<br />\n";
-    }
-    //Create Image Table
-    try {
-        $db = $conn->prepare($table_image_query);
-        $db->execute();
-    }
-    catch(PDOException $e)
-    {
-        echo "Create table failed: ::IMAGE:: " . $e->getMessage() . "<br />\n";
-    }
-    //Create Likes Table
-    try {
-        $db = $conn->prepare($table_likes_query);
-        $db->execute();
-    }
-    catch(PDOException $e)
-    {
-        echo "Create table failed: ::LIKES:: " . $e->getMessage() . "<br />\n";
-    }
-    //Create comment Table
-    try {
-        $db = $conn->prepare($table_comment_query);
-        $db->execute();
-    }
-    catch(PDOException $e)
-    {
-        echo "Create table failed: ::COMMENT:: " . $e->getMessage() . "<br />\n";
+        echo "Connection failed: " . $e->getMessage() . "<br />\n";
+        die();
     }
 ?>

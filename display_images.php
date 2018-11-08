@@ -1,5 +1,5 @@
 <?php
-	require_once('config/config.php');
+	require_once('config/database.php');
 	require_once('profile/functions.php');
     session_start();
 
@@ -36,7 +36,11 @@
 					echo	"<input class='btn' type='button' id='".$v['ID']."' onclick='like(this.id)' value='Like'>";
 				else
 					echo	"<input class='btn' type='button' id='".$v['ID']."' onclick='dislike(this.id)' value='Dislike'>";
-				echo "	<input class='btn' type='button' id='".$v['ID']."' onclick='comment(this.id)' value='Comment'>";
+				echo "
+					<form action='display_comments.php' method='GET'>
+					<input type='hidden' name='ID' value=".$v['ID'].">
+					<input style='width: 100%;' class='btn' type='submit' id='".$v['ID']."' value='Comment'>
+					</form>";
 				if (isset($_SESSION['Username']) && ($_SESSION['UID'] == $v['user_id']))
 				{
 					echo "<input type='button' class='btn' onclick='delete_image(".$v['ID'].")' value='Delete'>";

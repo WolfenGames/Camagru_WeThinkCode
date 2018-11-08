@@ -1,5 +1,5 @@
 <?php
-    require_once("config/config.php");
+    require_once("config/database.php");
     if (isset($_POST['ID']))
     {
 		$query = "DELETE FROM `camagru`.`images` WHERE `ID` = :id;";
