@@ -40,7 +40,7 @@
 				imagesavealpha($img, true);
 				$stick = imagescale($stick, 400, 100);
 				imagesavealpha($stick, true);
-				imagecopy($img, $stick, 320, 0, 0, 0, 630, 100);
+				imagecopy($img, $stick, 320, 0, 0, 0, 400, 100);
 				imagepng($img, 'save.png');
 			}
 			$img = base64_encode(file_get_contents('save.png'));

@@ -16,7 +16,7 @@
 			{
 				if ($cPass == $nPass)
 				{
-					if (correctCurr($cPass))
+					if (correctCurr($oPass))
 					{
 						$message = "message-pass=" . changePass($oPass, $nPass, $cPass) . "&message-user=";
 					}

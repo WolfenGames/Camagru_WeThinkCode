@@ -466,13 +466,10 @@
 			$stmt->SetFetchMode(PDO::FETCH_ASSOC);
 			$res = $stmt->fetch();
 			$hasp = hash("sha512", $cpass);
-			if ($res['password'] == $hasp)
-				return 1;
-			else
-				return 0;
+			return ($res['password'] == $hasp);
 		}
 		catch (PDOException $e)
 		{
-			return false;
+			echo "Error on curr pass :: " . $e->getMessage();
 		}
 	}
