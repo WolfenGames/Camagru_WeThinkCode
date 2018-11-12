@@ -370,11 +370,6 @@
 		}
 	}
 
-	function DoIexist()
-	{
-		return (isset($_SESSION['Username']));
-	}
-
 	function updateUser($uname, $email, $preff)
 	{
 		global $conn;

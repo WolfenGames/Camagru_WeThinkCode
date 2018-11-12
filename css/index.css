@@ -11,7 +11,7 @@ nav
 
 body
 {
-    background: #1A1D51 !important;
+	background: #1A1D51 !important;
 }
 
 #canvas
@@ -157,6 +157,11 @@ input[type=submit]
     background-color: #F5EAB7;
     color: white;
 	text-align: center;
+}
+
+.container
+{
+	margin-bottom: 60px;
 }
 
 @media screen and (orientation: landscape)

@@ -67,16 +67,19 @@
 					<input type="text" class="form-control" name="username" value="<?php echo $_SESSION['Username'];?>">
 				</div>
 				<div class="form-group">
-					<label class="text-warning" for="pwd">Old Password</label>
-					<input  class="form-control"type="password" name="oldPass">
+					<label class="text-primary" for="pwd">Old Password</label> <br />
+					<label class="text-warning"  for="pwd">Password must contain atleast 1 Uppercase, 1 lowercase, 1 special and minimum 8 characters </label>
+					<input  class="form-control"type="password" name="oldPass" pattern='^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$'>
 				</div>
 				<div class="form-group">
-					<label class="text-warning"  for="pwd">New Password</label>
-					<input class="form-control" type="password" name="newPass">
+					<label class="text-primary"  for="pwd">New Password</label> <br />
+					<label class="text-warning"  for="pwd">Password must contain atleast 1 Uppercase, 1 lowercase, 1 special and minimum 8 characters </label>
+					<input class="form-control" type="password" name="newPass" pattern='^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$'>
 				</div>
 				<div class="form-group">
-					<label class="text-warning"  for="pwd">Confirm new Password</label>
-					<input class="form-control" type="password" name="cNewPass">
+					<label class="text-primary"  for="pwd">Confirm new Password</label> <br />
+					<label class="text-warning"  for="pwd">Password must contain atleast 1 Uppercase, 1 lowercase, 1 special and minimum 8 characters </label>
+					<input class="form-control" type="password" name="cNewPass" pattern='^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$'>
 				</div>
 				<div class="checkbox">
 				<?php
@@ -116,8 +119,9 @@
 					<input class="form-control" type="text" placeholder="Username" name="uname">
 				</div>
 				<div class="form-group">
-					<label class="text-primary" for="pwd">Password</label>
-					<input class="form-control" type="password" placeholder="Password" name="password">
+					<label class="text-primary" for="pwd">Password</label> <br />
+					<label class="text-warning"  for="pwd">Password must contain atleast 1 Uppercase, 1 lowercase, 1 special and minimum 8 characters </label>
+					<input class="form-control" type="password" placeholder="Password" name="password" pattern='^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$'>
 				</div>
 				<button type="submit" class="btn btn-primary">Login</button>
 			</form>
@@ -135,12 +139,14 @@
 					<input type="text" class="form-control" placeholder="Username" name="uname">
 				</div>
 				<div class="form-group">
-					<label class="text-warning"  for="pwd">Password</label>
-					<input class="form-control" type="password" placeholder="Password" name="newPass">
+					<label class="text-primary"  for="pwd">Password</label> <br />
+					<label class="text-warning"  for="pwd">Password must contain atleast 1 Uppercase, 1 lowercase, 1 special and minimum 8 characters </label>
+					<input class="form-control" type="password" placeholder="Password" name="newPass" pattern='^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$'>
 				</div>
 				<div class="form-group">
-					<label class="text-warning"  for="pwd">Confirm Password</label>
-					<input class="form-control" type="password" placeholder="Confirm Password" name="cNewPass">
+					<label class="text-primary"  for="pwd">Confirm Password</label> <br />
+					<label class="text-warning"  for="pwd">Password must contain atleast 1 Uppercase, 1 lowercase, 1 special and minimum 8 characters </label>
+					<input class="form-control" type="password" placeholder="Confirm Password" name="cNewPass" pattern='^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$'>
 				</div>
 				<button type="submit" class="btn btn-primary">Register</button>
 			</form>

@@ -121,8 +121,8 @@
 				?>
 		</div>
 	</div>
-	<div class="footer">
-		<p>© jwolf 2018</p>
-	</div>
 </body>
+<footer class="footer">
+	<p>© jwolf 2018</p>
+</footer>
 </html>
